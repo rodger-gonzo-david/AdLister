@@ -30,6 +30,6 @@ INSERT INTO ads (users_id, title, description) VALUES
   (9, 'Make your business shine!', 'Here at Shiny Marketing, we will make your business look way better than it really is.', 300.29),
   (1, 'Looking 4 Furry Friends', 'Am human looking to be involved with furry friends, will pay for companion (inquire below)', NULL),
   (3, 'Banana Friends', 'We make banana posters that are all salmon colored', 147.78),
-  (6, 'ASUS Laptop', 'Not actually an asus laptop, but that\'s cool right? It has an asus sticker', 700.99),
+  (6, 'ASUS Laptop', 'Not actually an asus laptop, but that is cool right? It has an asus sticker', 700.99),
   (9, 'Welder Needed', 'Need experienced titanium welder fast. BOOKU Bucks to be made', NULL);
 
