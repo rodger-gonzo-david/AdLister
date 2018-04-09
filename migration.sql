@@ -1,4 +1,4 @@
-USE adlister_db;
+use adlister_db;
 
 DROP TABLE IF EXISTS ads;
 DROP TABLE IF EXISTS users;
@@ -16,7 +16,7 @@ CREATE TABLE ads (
     user_id INT UNSIGNED NOT NULL,
     title VARCHAR(240) NOT NULL,
     description TEXT NOT NULL,
-    price decimal(4,2) NOT NULL,
+    price decimal(6,2) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users(id)
         ON DELETE CASCADE
@@ -24,10 +24,8 @@ CREATE TABLE ads (
 
 CREATE TABLE categories(
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  category_id int UNSIGNED NOT NULL,
   category_name VARCHAR (250) not null,
-  PRIMARY KEY (id),
-  FOREIGN KEY (category_id) REFERENCES ads(id) on DELETE CASCADE
+  PRIMARY KEY (id)
 );
 
 CREATE table pivot_categories (
