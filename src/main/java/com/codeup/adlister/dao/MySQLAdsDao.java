@@ -2,6 +2,7 @@ package com.codeup.adlister.dao;
 
 import com.codeup.adlister.Config;
 import com.codeup.adlister.models.Ad;
+import com.codeup.adlister.models.User;
 import com.mysql.cj.jdbc.Driver;
 
 import javax.xml.transform.Result;
@@ -54,6 +55,19 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+
+    public List<Ad> profileAds(String s) {
+        PreparedStatement stmt;
+        try {
+            stmt = connection.prepareStatement("SELECT * FROM ads JOIN users ON ads.user_id = users.id WHERE username = ?");
+            stmt.setString(1, s);
+            ResultSet rs = stmt.executeQuery();
+            return createAdsFromResults(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error retrieving all user ads.", e);
+        }
+    }
+
     private Ad extractAd(ResultSet rs) throws SQLException {
         return new Ad(
             rs.getLong("id"),
@@ -84,6 +98,10 @@ public class MySQLAdsDao implements Ads {
             throw new RuntimeException("Error retrieving matching ads.", e);
         }
     }
+
+
+
+
 
     public List<Ad> individualAd(String adID) {
         System.out.println("adID = " + adID);
