@@ -3,6 +3,7 @@ package com.codeup.adlister.controllers;
 import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.User;
 
+import javax.net.ssl.HandshakeCompletedEvent;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,26 +19,6 @@ public class RegisterServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//        String username = request.getParameter("username");
-//        String email = request.getParameter("email");
-//        String password = request.getParameter("password");
-//        String passwordConfirmation = request.getParameter("confirm_password");
-//
-//        // validate input
-//        boolean inputHasErrors = username.isEmpty()
-//            || email.isEmpty()
-//            || password.isEmpty()
-//            || (! password.equals(passwordConfirmation));
-//
-//        if (inputHasErrors) {
-//            response.sendRedirect("/register");
-//            return;
-//        }
-//
-//        // create and save a new user
-//        User user = new User(username, email, password);
-//        DaoFactory.getUsersDao().insert(user);
-//        response.sendRedirect("/login");
 
         String  username = request.getParameter("username"),
                 password = request.getParameter("password"),
@@ -46,39 +27,24 @@ public class RegisterServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         if (password == null || password.trim() == ""){
-            session.removeAttribute("password_error");
-            session.removeAttribute("email_error");
-            session.removeAttribute("username_error");
-            session.removeAttribute("password_mismatch");
+            clearAttributes(request);
             session.setAttribute("password_error",  "<p style=\"color:red\">Sorry \"password\" error!</p>");
             response.sendRedirect("/register");
         } else if(!password.equals(password_confirm)){
-            session.removeAttribute("password_error");
-            session.removeAttribute("email_error");
-            session.removeAttribute("username_error");
-            session.removeAttribute("password_mismatch");
+            clearAttributes(request);
             session.setAttribute("password_mismatch",  "<p style=\"color:red\">Sorry \"passwords\" do not match!</p>");
             response.sendRedirect("/register");
         }
         else if (email == null || email.trim() == ""){
-            session.removeAttribute("password_error");
-            session.removeAttribute("email_error");
-            session.removeAttribute("username_error");
-            session.removeAttribute("password_mismatch");
+            clearAttributes(request);
             session.setAttribute("email_error",  "<p style=\"color:red\">Sorry \"email\" error!</p>");
             response.sendRedirect("/register");
         } else if (username == null || username.trim() == ""){
-            session.removeAttribute("password_error");
-            session.removeAttribute("email_error");
-            session.removeAttribute("username_error");
-            session.removeAttribute("password_mismatch");
+            clearAttributes(request);
             session.setAttribute("username_error",  "<p style=\"color:red\">Sorry \"username\" error!</p>");
             response.sendRedirect("/register");
         } else {
-            session.removeAttribute("password_error");
-            session.removeAttribute("password_mismatch");
-            session.removeAttribute("email_error");
-            session.removeAttribute("username_error");
+            clearAttributes(request);
             session.setAttribute("username", username);
             session.setAttribute("password", password);
             session.setAttribute("email", email);
@@ -93,4 +59,13 @@ public class RegisterServlet extends HttpServlet {
         }
 
     }
+
+    public void clearAttributes(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        session.removeAttribute("password_error");
+        session.removeAttribute("email_error");
+        session.removeAttribute("username_error");
+        session.removeAttribute("password_mismatch");
+    }
+
 }
