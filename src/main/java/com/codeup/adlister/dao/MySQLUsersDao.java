@@ -72,4 +72,24 @@ public class MySQLUsersDao implements Users {
         );
     }
 
+    public Long modifyEmail(User user) {
+       String query = "UPDATE users SET email = ? WHERE username = ?";
+       try {
+
+       } catch (SQLException e) {
+           throw new RuntimeException("Error changing email.", e);
+       }
+
+    }
+
+    public Long modifyPassword(User user) {
+        String query = "UPDATE users SET password = ? WHERE username = ?";
+
+    } catch (SQLException e) {
+        throw new RuntimeException("Error changing password.", e);
+    }
+
+
+
+
 }

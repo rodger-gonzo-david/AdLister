@@ -19,11 +19,17 @@ public class ViewProfileServlet extends HttpServlet {
             response.sendRedirect("/login");
             return;
         }
-
-        User user =  (User) request.getSession().getAttribute("user");
+        User user = (User) request.getSession().getAttribute("user");
         String entry = user.getUsername();
         List<Ad> ads = DaoFactory.getAdsDao().profileAds(entry);
         request.setAttribute("profileAds", ads);
         request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
     }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String emailChange = request.getParameter("emailInput");
+
+    }
 }
+

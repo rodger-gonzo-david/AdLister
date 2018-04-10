@@ -11,7 +11,11 @@
 
     <div class="container">
         <h1>Welcome, ${sessionScope.user.username}!</h1>
-        <h3>Email: ${sessionScope.user.email}</h3> <button type="button" class="btn btn-primary">Edit Email</button>
+        <h3>Email: ${sessionScope.user.email}</h3>
+        <form action="/ads/search" method="post">
+            <label for="emailInput"><input type="text" name="emailInput" id="emailInput"></label>
+            <button type="button" class="btn btn-primary">Edit Email</button>
+        </form>
         <c:forEach var="ad" items="${profileAds}">
             <div class="col-md-6">
                 <h2>${ad.title}</h2>
