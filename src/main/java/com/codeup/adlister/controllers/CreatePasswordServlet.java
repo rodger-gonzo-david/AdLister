@@ -22,7 +22,7 @@ public class CreatePasswordServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         if (pass != null){
-            String hashed = String.format("<p style=\"color:blue\"> The hashed password of %s is: %s</p>", password, pass);
+            String hashed = String.format("<p style=\"color:blue\"> The hashed password for %s is: %s</p>", password, pass);
             session.setAttribute("createdPassword", hashed);
             response.sendRedirect("/createpassword");
         }
