@@ -17,7 +17,7 @@ public class ViewProfileServlet extends HttpServlet {
             return;
         }
 
-        request.getSession().getAttribute("")
+        request.getSession().getAttribute("user");
 
         //  get userID
         //  pass it to DAO
