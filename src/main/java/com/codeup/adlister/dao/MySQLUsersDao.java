@@ -1,8 +1,11 @@
 package com.codeup.adlister.dao;
 
+
 import com.codeup.adlister.models.User;
 import com.mysql.cj.jdbc.Driver;
+import org.mindrot.jbcrypt.BCrypt;
 import com.codeup.adlister.Config;
+
 
 import java.sql.*;
 
@@ -42,7 +45,7 @@ public class MySQLUsersDao implements Users {
             PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getEmail());
-            stmt.setString(3, user.getPassword());
+            stmt.setString(3, hashPassword(user.getPassword()));
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -50,6 +53,11 @@ public class MySQLUsersDao implements Users {
         } catch (SQLException e) {
             throw new RuntimeException("Error creating new user", e);
         }
+    }
+
+    public String hashPassword(String password) {
+        int numberOfRounds = 12;
+        return BCrypt.hashpw(password, BCrypt.gensalt(numberOfRounds));
     }
 
     private User extractUser(ResultSet rs) throws SQLException {
