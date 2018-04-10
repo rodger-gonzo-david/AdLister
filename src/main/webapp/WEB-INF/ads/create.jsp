@@ -18,6 +18,17 @@
                 <label for="description">Description</label>
                 <textarea id="description" name="description" class="form-control" type="text"></textarea>
             </div>
+            <fieldset>
+                <legend>Category</legend>
+                <div>
+                    <input type="checkbox" id="catHome" name="category" value="1">
+                    <label for="catHome">Home</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="catAuto" name="category" value="2">
+                    <label for="catAuto">Music</label>
+                </div>
+            </fieldset>
             <input type="submit" class="btn btn-block btn-primary">
         </form>
     </div>

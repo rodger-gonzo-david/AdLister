@@ -2,10 +2,8 @@ package com.codeup.adlister.dao;
 
 import com.codeup.adlister.Config;
 import com.codeup.adlister.models.Ad;
-import com.codeup.adlister.models.User;
 import com.mysql.cj.jdbc.Driver;
 
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,7 +100,7 @@ public class MySQLAdsDao implements Ads {
 
 
 
-
+    @Override
     public List<Ad> individualAd(String adID) {
         System.out.println("adID = " + adID);
         PreparedStatement pst = null;
