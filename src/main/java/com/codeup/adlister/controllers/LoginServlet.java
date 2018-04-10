@@ -27,6 +27,9 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         User user = DaoFactory.getUsersDao().findByUsername(username);
         HttpSession session = request.getSession();
+        RegisterServlet clear = new RegisterServlet();
+
+        clear.clearAttributes(request);
 
         if (user == null) {
             response.sendRedirect("/login");
@@ -41,7 +44,7 @@ public class LoginServlet extends HttpServlet {
             request.getSession().setAttribute("user", user);
             response.sendRedirect("/profile");
         } else {
-            session.removeAttribute("username_error");
+            clear.clearAttributes(request);
             session.setAttribute("password_error",  "<p style=\"color:red\">Sorry \"wrong password\"!</p>");
             response.sendRedirect("/login");
         }
