@@ -12,5 +12,9 @@ public interface Ads {
 
     List<Ad> searchedAds(String s);
 
+
     List<Ad> profileAds(String s);
+
+    List<Ad> individualAd(String adID);
+
 }
