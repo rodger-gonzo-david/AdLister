@@ -1,12 +1,9 @@
 package com.codeup.adlister.dao;
 
-import com.codeup.adlister.controllers.Config;
+import com.codeup.adlister.Config;
 import com.codeup.adlister.models.Ad;
 import com.mysql.cj.jdbc.Driver;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,4 +69,18 @@ public class MySQLAdsDao implements Ads {
         }
         return ads;
     }
-}
+
+    @Override
+    public List<Ad> searchedAds(String searchInput) {
+        System.out.println("searchInput = " + searchInput);
+        PreparedStatement pst = null;
+        try {
+            pst = connection.prepareStatement("SELECT * FROM ads WHERE title LIKE ?");
+            pst.setString(1,"%" + searchInput + "%");
+            ResultSet rs = pst.executeQuery();
+            return createAdsFromResults(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error retrieving matching ads.", e);
+        }
+    }
+ }
