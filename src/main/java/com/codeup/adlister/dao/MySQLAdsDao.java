@@ -2,6 +2,7 @@ package com.codeup.adlister.dao;
 
 import com.codeup.adlister.Config;
 import com.codeup.adlister.models.Ad;
+import com.codeup.adlister.models.User;
 import com.mysql.cj.jdbc.Driver;
 
 import java.sql.*;
@@ -25,12 +26,10 @@ public class MySQLAdsDao implements Ads {
     }
 
     @Override
-    public List<Ad> userAds(Users user) {
+    public List<Ad> all() {
         PreparedStatement stmt = null;
         try {
-            stmt = connection.prepareStatement("SELECT title, description " +
-                    "FROM ads JOIN users ON ads.user_id = users.id WHERE username = '?'");
-            stmt.setString(1, user.getId());
+            stmt = connection.prepareStatement("SELECT * FROM ads");
             ResultSet rs = stmt.executeQuery();
             return createAdsFromResults(rs);
         } catch (SQLException e) {
@@ -55,15 +54,16 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
-    @Override
-    public List<Ad> userAd() {
-        PreparedStatement stmt = null;
+
+    public List<Ad> profileAds(String s) {
+        PreparedStatement stmt;
         try {
-            stmt = connection.prepareStatement("SELECT * FROM ads");
+            stmt = connection.prepareStatement("SELECT * FROM ads JOIN users ON ads.user_id = users.id WHERE username = ?");
+            stmt.setString(1, s);
             ResultSet rs = stmt.executeQuery();
             return createAdsFromResults(rs);
         } catch (SQLException e) {
-            throw new RuntimeException("Error retrieving all ads.", e);
+            throw new RuntimeException("Error retrieving all user ads.", e);
         }
     }
 
@@ -97,4 +97,6 @@ public class MySQLAdsDao implements Ads {
             throw new RuntimeException("Error retrieving matching ads.", e);
         }
     }
- }
+
+
+}
