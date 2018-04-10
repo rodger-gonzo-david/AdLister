@@ -8,10 +8,12 @@
     }
 
     if(user != null){
-        request.setAttribute("navbar", "<li><a href=\"/logout\">Logout</a></li>\n" +
+        request.setAttribute("navbar", "<li><a href=\"/ads/search\">Search</a></li>\n" +
+                "<li><a href=\"/logout\">Logout</a></li>\n" +
                 "<li><a href=\"/ads/create\">Create</a></li>");
     }  else {
-        request.setAttribute("navbar", "<li><a href=\"/register\">Register</a></li>\n" +
+        request.setAttribute("navbar", "<li><a href=\"/ads/search\">Search</a></li>\n" +
+                "<li><a href=\"/register\">Register</a></li>\n" +
                 "<li><a href=\"/login\">Login</a></li>");
     }
 %>
@@ -23,8 +25,6 @@
             <a class="navbar-brand" href="/ads">Adlister</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-            <%--<li><a href="/login">Login</a></li>--%>
-            <%--<li><a href="/logout">Logout</a></li>--%>
             ${navbar}
         </ul>
     </div><!-- /.navbar-collapse -->
