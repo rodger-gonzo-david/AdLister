@@ -72,24 +72,31 @@ public class MySQLUsersDao implements Users {
         );
     }
 
-    public Long modifyEmail(User user) {
+    public void modifyEmail(String emailChange, String username) {
        String query = "UPDATE users SET email = ? WHERE username = ?";
        try {
-
+           PreparedStatement stmt = connection.prepareStatement(query);
+           stmt.setString(1, emailChange);
+           stmt.setString(2, username);
+           stmt.executeUpdate();
        } catch (SQLException e) {
            throw new RuntimeException("Error changing email.", e);
        }
-
     }
 
-    public Long modifyPassword(User user) {
+    @Override
+    public void modifyPassword(String password, String username) {
         String query = "UPDATE users SET password = ? WHERE username = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, hashPassword(password));
+            stmt.setString(2, username);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error changing email.", e);
+        }
 
-    } catch (SQLException e) {
-        throw new RuntimeException("Error changing password.", e);
+
     }
-
-
-
 
 }

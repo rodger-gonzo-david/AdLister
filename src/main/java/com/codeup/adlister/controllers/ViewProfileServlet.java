@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class ViewProfileServlet extends HttpServlet {
             response.sendRedirect("/login");
             return;
         }
+
         User user = (User) request.getSession().getAttribute("user");
         String entry = user.getUsername();
         List<Ad> ads = DaoFactory.getAdsDao().profileAds(entry);
@@ -29,7 +31,24 @@ public class ViewProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String emailChange = request.getParameter("emailInput");
+        String passwordChange = request.getParameter("passwordInput");
+        User user = (User) request.getSession().getAttribute("user");
+        String username = user.getUsername();
 
+        if (!emailChange.equals("")) {
+            DaoFactory.getUsersDao().modifyEmail(emailChange, username);
+        }
+
+        if (!passwordChange.equals("")) {
+            DaoFactory.getUsersDao().modifyPassword(passwordChange, username);
+        }
+
+            user = DaoFactory.getUsersDao().findByUsername(username);
+            request.getSession().invalidate();
+            request.getSession().setAttribute("user", user);
+
+
+
+        request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
     }
 }
-
