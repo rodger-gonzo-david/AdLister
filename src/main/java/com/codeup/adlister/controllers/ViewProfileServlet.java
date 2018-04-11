@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -20,10 +21,41 @@ public class ViewProfileServlet extends HttpServlet {
             return;
         }
 
-        User user =  (User) request.getSession().getAttribute("user");
+        User user = (User) request.getSession().getAttribute("user");
         String entry = user.getUsername();
         List<Ad> ads = DaoFactory.getAdsDao().profileAds(entry);
         request.setAttribute("profileAds", ads);
+        request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String emailChange = request.getParameter("emailInput");
+        String passwordChange = request.getParameter("passwordInput");
+        System.out.println(emailChange);
+        System.out.println(passwordChange);
+        User user = (User) request.getSession().getAttribute("user");
+        String username = user.getUsername();
+
+//        if (!emailChange.equals("")) {
+        if (emailChange != null || emailChange.trim() != "") {
+            DaoFactory.getUsersDao().modifyEmail(emailChange, username);
+        }
+
+//        if (!passwordChange.equals("")) {
+        if (passwordChange != null || passwordChange.trim() != "") {
+            DaoFactory.getUsersDao().modifyPassword(passwordChange, username);
+        } else if (passwordChange == null || passwordChange.trim() == ""){
+            System.out.println("I am null");
+            response.sendRedirect("/profile");
+        }
+
+            user = DaoFactory.getUsersDao().findByUsername(username);
+            request.getSession().invalidate();
+            request.getSession().setAttribute("user", user);
+
+
+
         request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
     }
 }

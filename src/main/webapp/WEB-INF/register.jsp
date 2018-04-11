@@ -9,17 +9,18 @@
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 <div class="container">
     <%--<h1>Register</h1>--%>
-    ${username_error}
-    ${password_error}
-    ${email_error}
-    ${password_mismatch}
-
     <form class="form-horizontal" action='/register' method="POST">
         <fieldset>
             <div id="legend">
                 <legend class="">Register</legend>
             </div>
             <div class="control-group">
+                ${username_error}
+                ${password_error}
+                ${email_error}
+                ${password_mismatch}
+                ${userExist_error}
+                ${emailExist_error}
                 <!-- Username -->
                 <label class="control-label"  for="username">Username</label>
                 <div class="controls">

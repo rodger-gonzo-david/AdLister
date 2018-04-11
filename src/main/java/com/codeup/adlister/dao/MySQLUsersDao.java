@@ -39,6 +39,19 @@ public class MySQLUsersDao implements Users {
     }
 
     @Override
+    public User findByEmail(String email) {
+        String query = "SELECT * FROM users WHERE email = ? LIMIT 1";
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, email);
+            return extractUser(statement.executeQuery());
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding an email by the email provided", e);
+        }
+    }
+
+
+    @Override
     public Long insert(User user) {
         String query = "INSERT INTO users(username, email, password) VALUES (?, ?, ?)";
         try {
@@ -70,6 +83,33 @@ public class MySQLUsersDao implements Users {
             rs.getString("email"),
             rs.getString("password")
         );
+    }
+
+    public void modifyEmail(String emailChange, String username) {
+       String query = "UPDATE users SET email = ? WHERE username = ?";
+       try {
+           PreparedStatement stmt = connection.prepareStatement(query);
+           stmt.setString(1, emailChange);
+           stmt.setString(2, username);
+           stmt.executeUpdate();
+       } catch (SQLException e) {
+           throw new RuntimeException("Error changing email.", e);
+       }
+    }
+
+    @Override
+    public void modifyPassword(String password, String username) {
+        String query = "UPDATE users SET password = ? WHERE username = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, hashPassword(password));
+            stmt.setString(2, username);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error changing email.", e);
+        }
+
+
     }
 
 }
