@@ -129,4 +129,16 @@ public class MySQLAdsDao implements Ads {
             throw new RuntimeException("Error retrieving specific add", e);
         }
     }
- }
+
+    @Override
+    public Long modifyAd(Ad ad) {
+        return null;
+        // Get the requested AD with current info
+        // get the info that needs to be updated
+        // compare the two to see what needs to be updated
+        // create the SQL update statement
+        // UPDATE ads SET title = ? WHERE id = ?;
+
+
+    }
+}

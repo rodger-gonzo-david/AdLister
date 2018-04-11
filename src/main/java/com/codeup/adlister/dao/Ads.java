@@ -17,5 +17,5 @@ public interface Ads {
 
     List<Ad> individualAd(String adID);
 
-
+    Long modifyAd(Ad ad);
 }
