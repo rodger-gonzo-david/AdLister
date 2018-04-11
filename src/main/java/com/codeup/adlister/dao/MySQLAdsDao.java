@@ -46,24 +46,25 @@ public class MySQLAdsDao implements Ads {
             stmt.setString(3, ad.getDescription());
             stmt.setDouble(4, Double.parseDouble(ad.getPrice()));
             stmt.executeUpdate();
+            Long holder = Long.parseLong(ad.getCategory());
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
-            System.out.println("rs.getLong(1) = " + rs.getLong(1));
-            System.out.println("rs.getString(1) = " + rs.getString(1));
-            insertCat(rs.getInt(1));
+            insertCat(rs.getInt(1),holder);
             return rs.getLong(1);
         } catch (SQLException e) {
             throw new RuntimeException("Error creating a new ad.", e);
         }
     }
 
-    private void insertCat (int rs) {
+    private void insertCat (int rs, Long cat) {
         try {
             String insertQuery = "INSERT INTO pivot_categories (ads_id, categories_id) VALUES (?,?)";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1,rs);
-            stmt.setInt(2,4);
+            stmt.setLong(2, cat);
             stmt.executeUpdate();
+            ResultSet pr = stmt.getGeneratedKeys();
+            pr.next();
         } catch (SQLException e){
             throw new RuntimeException("Error adding category", e);
         }

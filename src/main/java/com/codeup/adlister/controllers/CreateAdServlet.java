@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet(name = "controllers.CreateAdServlet", urlPatterns = "/ads/create")
 public class CreateAdServlet extends HttpServlet {
@@ -27,7 +28,7 @@ public class CreateAdServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user=null;
 
-        String priceTest = request.getParameter("price");
+//        String priceTest = request.getParameter("price");
 
         if(session != null){
             user = (User) session.getAttribute("user");
@@ -38,7 +39,8 @@ public class CreateAdServlet extends HttpServlet {
                     user.getId(), // for now we'll hardcode the user id
                     request.getParameter("title"),
                     request.getParameter("description"),
-                    request.getParameter("price")
+                    request.getParameter("price"),
+                    request.getParameter("category")
 
             );
             DaoFactory.getAdsDao().insert(ad);
