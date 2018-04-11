@@ -2,10 +2,8 @@ package com.codeup.adlister.dao;
 
 import com.codeup.adlister.Config;
 import com.codeup.adlister.models.Ad;
-import com.codeup.adlister.models.User;
 import com.mysql.cj.jdbc.Driver;
 
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,17 +39,33 @@ public class MySQLAdsDao implements Ads {
     @Override
     public Long insert(Ad ad) {
         try {
-            String insertQuery = "INSERT INTO ads(user_id, title, description) VALUES (?, ?, ?)";
+            String insertQuery = "INSERT INTO ads(user_id, title, description, price) VALUES (?, ?, ?, ?)";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
             stmt.setLong(1, ad.getUserId());
             stmt.setString(2, ad.getTitle());
             stmt.setString(3, ad.getDescription());
+            stmt.setDouble(4, Double.parseDouble(ad.getPrice()));
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
+            System.out.println("rs.getLong(1) = " + rs.getLong(1));
+            System.out.println("rs.getString(1) = " + rs.getString(1));
+            insertCat(rs.getInt(1));
             return rs.getLong(1);
         } catch (SQLException e) {
             throw new RuntimeException("Error creating a new ad.", e);
+        }
+    }
+
+    private void insertCat (int rs) {
+        try {
+            String insertQuery = "INSERT INTO pivot_categories (ads_id, categories_id) VALUES (?,?)";
+            PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+            stmt.setInt(1,rs);
+            stmt.setInt(2,4);
+            stmt.executeUpdate();
+        } catch (SQLException e){
+            throw new RuntimeException("Error adding category", e);
         }
     }
 
@@ -102,7 +116,7 @@ public class MySQLAdsDao implements Ads {
 
 
 
-
+    @Override
     public List<Ad> individualAd(String adID) {
         System.out.println("adID = " + adID);
         PreparedStatement pst = null;

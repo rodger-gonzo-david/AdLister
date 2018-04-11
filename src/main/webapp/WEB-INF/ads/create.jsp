@@ -20,8 +20,19 @@
             </div>
             <div class="form-group">
                 <label for="price">Price</label>
-                <input id="price" name="price" class="form-control" type="text">
+                <textarea id="price" name="price" class="form-control" type="text" value=0.0></textarea>
             </div>
+            <fieldset>
+                <legend>Category</legend>
+                <div>
+                    <input type="checkbox" id="catHome" name="category" value="1">
+                    <label for="catHome">Home</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="catAuto" name="category" value="2">
+                    <label for="catAuto">Music</label>
+                </div>
+            </fieldset>
             <input type="submit" class="btn btn-block btn-primary">
         </form>
     </div>
