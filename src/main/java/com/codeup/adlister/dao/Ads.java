@@ -17,4 +17,5 @@ public interface Ads {
 
     List<Ad> individualAd(String adID);
 
+
 }
