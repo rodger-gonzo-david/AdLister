@@ -74,8 +74,30 @@ public class Validate {
 
     }
 
+    public boolean authenticate(String title, String description, String price, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        if(title == null || title.trim() == ""){
+            clearAttributes(request);
+            session.setAttribute("title_error",  "<p style=\"color:red\">Title cannot be empty</p>");
+            return false;
+        } else if(description == null || description.trim() == ""){
+            clearAttributes(request);
+            session.setAttribute("description_error",  "<p style=\"color:red\">Description cannot be empty</p>");
+            return false;
+        } else if(price == null || price.trim() == ""){
+            clearAttributes(request);
+            session.setAttribute("price_error",  "<p style=\"color:red\">Price cannot be empty</p>");
+            return false;
+        } else return true;
+    }
+
+
     public void clearAttributes(HttpServletRequest request){
         HttpSession session = request.getSession();
+        session.removeAttribute("title_error");
+        session.removeAttribute("description_error");
+        session.removeAttribute("price_error");
         session.removeAttribute("password_error");
         session.removeAttribute("email_error");
         session.removeAttribute("username_error");

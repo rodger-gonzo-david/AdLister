@@ -3,6 +3,7 @@ package com.codeup.adlister.controllers;
 import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.User;
+import com.codeup.adlister.util.Validate;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,23 +27,27 @@ public class CreateAdServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         User user=null;
-
-        String priceTest = request.getParameter("price");
+        String title = request.getParameter("title");
+        String description = request.getParameter("description");
+        String price = request.getParameter("price");
+        Validate validate = new Validate();
+        boolean validAttempt = validate.authenticate(title,description,price,request);
 
         if(session != null){
             user = (User) session.getAttribute("user");
         }
 
         if(user != null){
-            Ad ad = new Ad(
-                    user.getId(), // for now we'll hardcode the user id
-                    request.getParameter("title"),
-                    request.getParameter("description"),
-                    request.getParameter("price")
+            if (validAttempt) {
+                Ad ad = new Ad(user.getId(), // for now we'll hardcode the user id
+                        request.getParameter("title"), request.getParameter("description"), request.getParameter("price")
 
-            );
-            DaoFactory.getAdsDao().insert(ad);
-            response.sendRedirect("/ads");
+                );
+                DaoFactory.getAdsDao().insert(ad);
+                response.sendRedirect("/ads");
+            } else {
+                response.sendRedirect("/ads/create");
+            }
         }
     }
 }

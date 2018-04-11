@@ -11,14 +11,17 @@
         <h1>Create a new Ad</h1>
         <form action="/ads/create" method="post">
             <div class="form-group">
+                ${title_error}
                 <label for="title">Title</label>
                 <input id="title" name="title" class="form-control" type="text">
             </div>
             <div class="form-group">
+                ${description_error}
                 <label for="description">Description</label>
                 <textarea id="description" name="description" class="form-control" type="text"></textarea>
             </div>
             <div class="form-group">
+                ${price_error}
                 <label for="price">Price</label>
                 <textarea id="price" name="price" class="form-control" type="text" value=0.0></textarea>
             </div>
