@@ -67,6 +67,7 @@ public class Validate {
             session.setAttribute("username_error",  "<p style=\"color:red\">Username does not exist!</p>");
             return false;
         } else if (!Password.check(password, user.getPassword())){
+            clearAttributes(request);
             session.setAttribute("password_error",  "<p style=\"color:red\">Sorry \"wrong password\"!</p>");
             return false;
         } else return true;
