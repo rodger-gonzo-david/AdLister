@@ -3,6 +3,7 @@ package com.codeup.adlister.controllers;
 import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.User;
 import com.codeup.adlister.util.Password;
+import com.codeup.adlister.util.Validate;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,24 +26,17 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        User user = DaoFactory.getUsersDao().findByUsername(username);
         HttpSession session = request.getSession();
+        User user = DaoFactory.getUsersDao().findByUsername(username);
 
-        if (user == null) {
-            response.sendRedirect("/login");
-            session.removeAttribute("password_error");
-            session.setAttribute("username_error",  "<p style=\"color:red\">Sorry \"wrong username\"!</p>");
-            return;
-        }
-
-        boolean validAttempt = Password.check(password, user.getPassword());
+        Validate validate = new Validate();
+        boolean validAttempt = validate.authenticate(username,password,request,response);
 
         if (validAttempt) {
+            validate.clearAttributes(request);
             request.getSession().setAttribute("user", user);
             response.sendRedirect("/profile");
         } else {
-            session.removeAttribute("username_error");
-            session.setAttribute("password_error",  "<p style=\"color:red\">Sorry \"wrong password\"!</p>");
             response.sendRedirect("/login");
         }
     }
