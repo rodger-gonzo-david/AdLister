@@ -3,6 +3,7 @@ package com.codeup.adlister.controllers;
 import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.User;
 import com.codeup.adlister.util.Password;
+import com.codeup.adlister.util.Validate;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +28,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         User user = DaoFactory.getUsersDao().findByUsername(username);
         HttpSession session = request.getSession();
-        RegisterServlet clear = new RegisterServlet();
+        Validate clear = new Validate();
 
         clear.clearAttributes(request);
 

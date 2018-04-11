@@ -2,6 +2,7 @@ package com.codeup.adlister.controllers;
 
 import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.User;
+import com.codeup.adlister.util.Validate;
 
 import javax.net.ssl.HandshakeCompletedEvent;
 import javax.servlet.ServletException;
@@ -10,11 +11,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sound.midi.Soundbank;
+import java.awt.*;
 import java.io.IOException;
 
 @WebServlet(name = "controllers.RegisterServlet", urlPatterns = "/register")
 public class RegisterServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
     }
 
@@ -25,41 +29,12 @@ public class RegisterServlet extends HttpServlet {
                 password = request.getParameter("password"),
                 password_confirm = request.getParameter("password_confirm");
 
-        User userInput = DaoFactory.getUsersDao().findByUsername(username);
-        User userEmail = DaoFactory.getUsersDao().findByEmail(email);
         HttpSession session = request.getSession();
-        String userExist = String.format("<p style=\"color:red\">Sorry username '%s' already exists.</p", username);
-        String emailExist = String.format("<p style=\"color:red\">Sorry email '%s' already exists.</p", email);
+        Validate input = new Validate();
+        Boolean validation = input.authenticate(username,password,email,password_confirm,request,response);
 
-        if (password == null || password.trim() == ""){
-            clearAttributes(request);
-            session.setAttribute("password_error",  "<p style=\"color:red\">Sorry \"password\" error!</p>");
-            response.sendRedirect("/register");
-        } else if(!password.equals(password_confirm)){
-            clearAttributes(request);
-            session.setAttribute("password_mismatch",  "<p style=\"color:red\">Sorry \"passwords\" do not match!</p>");
-            response.sendRedirect("/register");
-        } else if (email == null || email.trim() == ""){
-            clearAttributes(request);
-            session.setAttribute("email_error",  "<p style=\"color:red\">Sorry \"email\" error!</p>");
-            response.sendRedirect("/register");
-        }
-        else if (username == null || username.trim() == ""){
-            clearAttributes(request);
-            session.setAttribute("username_error",  "<p style=\"color:red\">Sorry \"username\" error!</p>");
-            response.sendRedirect("/register");
-        } else if (username.equals(userInput.getUsername())){
-            clearAttributes(request);
-            session.setAttribute("userExist_error", userExist);
-            response.sendRedirect("/register");
-        } else if (email.equals(userEmail.getEmail())){
-            response.sendRedirect("/register");
-            clearAttributes(request);
-            session.setAttribute("emailExist_error", emailExist);
-        } else if (userEmail.getEmail() == null){
-        }
-        else {
-            clearAttributes(request);
+        if (validation) {
+//            clearAttributes(request);
             session.setAttribute("username", username);
             session.setAttribute("password", password);
             session.setAttribute("email", email);
@@ -73,15 +48,6 @@ public class RegisterServlet extends HttpServlet {
             response.sendRedirect("/profile");
         }
 
-    }
-
-    public void clearAttributes(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        session.removeAttribute("password_error");
-        session.removeAttribute("email_error");
-        session.removeAttribute("username_error");
-        session.removeAttribute("password_mismatch");
-        session.removeAttribute("userexist_error");
     }
 
 }
