@@ -58,6 +58,21 @@ public class Validate {
         } else return true;
     }
 
+    public boolean authenticate (String username, String password, HttpServletRequest request, HttpServletResponse response) throws IOException{
+        HttpSession session = request.getSession();
+        User user = DaoFactory.getUsersDao().findByUsername(username);
+
+        if (user == null) {
+            clearAttributes(request);
+            session.setAttribute("username_error",  "<p style=\"color:red\">Username does not exist!</p>");
+            return false;
+        } else if (!Password.check(password, user.getPassword())){
+            session.setAttribute("password_error",  "<p style=\"color:red\">Sorry \"wrong password\"!</p>");
+            return false;
+        } else return true;
+
+    }
+
     public void clearAttributes(HttpServletRequest request){
         HttpSession session = request.getSession();
         session.removeAttribute("password_error");

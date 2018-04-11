@@ -34,7 +34,7 @@ public class RegisterServlet extends HttpServlet {
         Boolean validation = input.authenticate(username,password,email,password_confirm,request,response);
 
         if (validation) {
-//            clearAttributes(request);
+            input.clearAttributes(request);
             session.setAttribute("username", username);
             session.setAttribute("password", password);
             session.setAttribute("email", email);
