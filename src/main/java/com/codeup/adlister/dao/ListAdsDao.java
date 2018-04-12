@@ -21,6 +21,21 @@ public class ListAdsDao implements Ads {
     }
 
     @Override
+    public void titleChange(String title, String adId) {
+
+    }
+
+    @Override
+    public void descriptionChange(String description, String adId) {
+
+    }
+
+    @Override
+    public void deleteAd(String adId) {
+
+    }
+
+    @Override
     public List<Ad> searchedAds(String s, String c) {
         return null;
     }
@@ -71,3 +86,4 @@ public class ListAdsDao implements Ads {
         return ads;
     }
 }
+

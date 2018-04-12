@@ -17,5 +17,9 @@ public interface Ads {
 
     List<Ad> individualAd(String adID);
 
+    void titleChange(String title, String adId);
 
+    void descriptionChange(String description, String adId);
+
+    void deleteAd(String adId);
 }

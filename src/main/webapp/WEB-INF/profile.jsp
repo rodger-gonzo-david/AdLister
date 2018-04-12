@@ -22,12 +22,8 @@
             <div class="col-md-6">
                 <h2>${ad.title}</h2>
                 <p>${ad.description}</p>
-                <button type="button" class="btn btn-primary">Edit Ad</button>
-                <button type="button" class="btn btn-danger">Delete Ad</button>
+                <a href="/ads/editAd?ad-id=${ad.id}">Edit this ad.</a>
             </div>
         </c:forEach>
-
-
-
 </body>
 </html>
