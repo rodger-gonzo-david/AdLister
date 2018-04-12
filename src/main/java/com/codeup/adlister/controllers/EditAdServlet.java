@@ -25,15 +25,21 @@ public class EditAdServlet extends HttpServlet {
 
         if (titleChange != null || titleChange.trim() != "") {
             DaoFactory.getAdsDao().titleChange(titleChange, adId);
+        } else {
+            return;
         }
 
 
         if (descriptionChange != null || descriptionChange.trim() != "") {
             DaoFactory.getAdsDao().descriptionChange(descriptionChange, adId);
+        } else {
+            return;
         }
 
         if (deleteAd != null || deleteAd.trim() != "") {
             DaoFactory.getAdsDao().deleteAd(adId);
+        } else {
+            return;
         }
 
         response.sendRedirect("/profile");
