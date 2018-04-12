@@ -119,7 +119,6 @@ public class MySQLAdsDao implements Ads {
 
     @Override
     public List<Ad> individualAd(String adID) {
-        System.out.println("adID = " + adID);
         PreparedStatement pst = null;
         try {
             pst = connection.prepareStatement("SELECT * FROM ads WHERE id = ?");
@@ -132,14 +131,41 @@ public class MySQLAdsDao implements Ads {
     }
 
     @Override
-    public Long modifyAd(Ad ad) {
-        return null;
-        // Get the requested AD with current info
-        // get the info that needs to be updated
-        // compare the two to see what needs to be updated
-        // create the SQL update statement
-        // UPDATE ads SET title = ? WHERE id = ?;
+    public void titleChange(String title, String adId) {
+        String query = "UPDATE ads SET title = ? WHERE id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, title);
+            stmt.setInt(2, Integer.parseInt(adId));
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error changing title.", e);
+        }
+    }
 
 
+    @Override
+    public void descriptionChange(String description, String adId) {
+        String query = "UPDATE ads SET description = ? WHERE id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, description);
+            stmt.setInt(2, Integer.parseInt(adId));
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error changing email.", e);
+        }
+    }
+
+    @Override
+    public void deleteAd(String adId) {
+        String query = "DELETE FROM ads WHERE id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, adId);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error deleting ad");
+        }
     }
 }

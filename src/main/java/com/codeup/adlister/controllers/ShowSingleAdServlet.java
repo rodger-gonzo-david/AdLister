@@ -21,7 +21,6 @@ public class ShowSingleAdServlet extends HttpServlet {
 
 
         String Ad = request.getParameter("ad-id");
-        System.out.println(Ad);
         List<Ad> singleAd = DaoFactory.getAdsDao().individualAd(Ad);
         request.setAttribute("single", singleAd);
         request.getRequestDispatcher("/WEB-INF/ads/singleAd.jsp").forward(request, response);
