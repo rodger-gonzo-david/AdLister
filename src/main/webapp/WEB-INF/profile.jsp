@@ -22,6 +22,8 @@
             <div class="col-md-6">
                 <h2>${ad.title}</h2>
                 <p>${ad.description}</p>
+                <img src="${ad.location}" alt="test">
+                <h2>${message}</h2>
                 <button type="button" class="btn btn-primary">Edit Ad</button>
                 <button type="button" class="btn btn-danger">Delete Ad</button>
             </div>

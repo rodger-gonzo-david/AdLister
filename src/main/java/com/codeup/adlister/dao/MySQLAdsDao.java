@@ -28,7 +28,8 @@ public class MySQLAdsDao implements Ads {
     public List<Ad> all() {
         PreparedStatement stmt = null;
         try {
-            stmt = connection.prepareStatement("SELECT * FROM ads");
+//            stmt = connection.prepareStatement("SELECT * FROM ads");
+            stmt = connection.prepareStatement("SELECT * FROM ads JOIN pivot_media on ads.id = pivot_media.ad_id join media on pivot_media.media_id = media.id order by ad_id");
             ResultSet rs = stmt.executeQuery();
             return createAdsFromResults(rs);
         } catch (SQLException e) {
@@ -69,11 +70,11 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
-
     public List<Ad> profileAds(String s) {
         PreparedStatement stmt;
         try {
-            stmt = connection.prepareStatement("SELECT * FROM ads JOIN users ON ads.user_id = users.id WHERE username = ?");
+//            stmt = connection.prepareStatement("SELECT * FROM ads JOIN users ON ads.user_id = users.id WHERE username = ?");
+            stmt = connection.prepareStatement("SELECT * FROM ads JOIN users ON ads.user_id = users.id JOIN pivot_media on ads.id = pivot_media.ad_id join media on pivot_media.media_id = media.id WHERE username = ?");
             stmt.setString(1, s);
             ResultSet rs = stmt.executeQuery();
             return createAdsFromResults(rs);
@@ -87,7 +88,8 @@ public class MySQLAdsDao implements Ads {
             rs.getLong("id"),
             rs.getLong("user_id"),
             rs.getString("title"),
-            rs.getString("description")
+            rs.getString("description"),
+            rs.getString("location")
         );
     }
 
@@ -112,8 +114,6 @@ public class MySQLAdsDao implements Ads {
             throw new RuntimeException("Error retrieving matching ads.", e);
         }
     }
-
-
 
 
     @Override

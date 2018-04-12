@@ -25,6 +25,11 @@
                 <label for="price">Price</label>
                 <input id="price" name="price" class="form-control" type="text" value=${price}>
             </div>
+            <div class="form-group">
+                <label for="fileupload">Upload image</label>
+                    <input id="fileupload" name="myfile" type="file" />
+            </div>
+
             <fieldset>
                 <legend>Category</legend>
                 <div>

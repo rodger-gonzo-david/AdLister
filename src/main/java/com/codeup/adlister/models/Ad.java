@@ -6,12 +6,14 @@ public class Ad {
     private String title;
     private String description;
     private String price;
+    private String location;
 
-    public Ad(long id, long userId, String title, String description) {
+    public Ad(long id, long userId, String title, String description, String location) {
         this.id = id;
         this.userId = userId;
         this.title = title;
         this.description = description;
+        this.location = location;
     }
 
     public Ad(long userId, String title, String description, String price) {
@@ -19,6 +21,14 @@ public class Ad {
         this.title = title;
         this.description = description;
         this.price = price;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public long getId() {
