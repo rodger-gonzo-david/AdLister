@@ -22,6 +22,7 @@ public class CreateAdServlet extends HttpServlet {
         }
         request.getRequestDispatcher("/WEB-INF/ads/create.jsp")
             .forward(request, response);
+
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -46,6 +47,9 @@ public class CreateAdServlet extends HttpServlet {
                 DaoFactory.getAdsDao().insert(ad);
                 response.sendRedirect("/ads");
             } else {
+                session.setAttribute("title", title);
+                session.setAttribute("description", description);
+                session.setAttribute("price", price);
                 response.sendRedirect("/ads/create");
             }
         }

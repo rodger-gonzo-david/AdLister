@@ -13,17 +13,17 @@
             <div class="form-group">
                 ${title_error}
                 <label for="title">Title</label>
-                <input id="title" name="title" class="form-control" type="text">
+                <input id="title" name="title" class="form-control" type="text" value=${title}>
             </div>
             <div class="form-group">
                 ${description_error}
                 <label for="description">Description</label>
-                <textarea id="description" name="description" class="form-control" type="text"></textarea>
+                <textarea id="description" name="description" class="form-control" type="text">${description}</textarea>
             </div>
             <div class="form-group">
                 ${price_error}
                 <label for="price">Price</label>
-                <textarea id="price" name="price" class="form-control" type="text" value=0.0></textarea>
+                <input id="price" name="price" class="form-control" type="text" value=${price}>
             </div>
             <fieldset>
                 <legend>Category</legend>
