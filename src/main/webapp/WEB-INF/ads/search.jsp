@@ -19,6 +19,11 @@
 <h1>Welcome to the Search Page</h1>
 <form action="/ads/search" method="get">
     <label for="search"><input type="text" name="searchInput" id="search"></label>
+    <label for="searchCat"><select id="searchCat" name="searchCat">
+        <option value="Home">Home</option>
+        <option value="Auto">Auto</option>
+    </select></label>
+    <button>Submit</button>
 </form>
 
 <div class="container">

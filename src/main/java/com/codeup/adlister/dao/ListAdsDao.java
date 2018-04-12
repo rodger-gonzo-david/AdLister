@@ -21,7 +21,7 @@ public class ListAdsDao implements Ads {
     }
 
     @Override
-    public List<Ad> searchedAds(String s) {
+    public List<Ad> searchedAds(String s, String c) {
         return null;
     }
 
