@@ -101,12 +101,18 @@ public class MySQLAdsDao implements Ads {
     }
 
     @Override
-    public List<Ad> searchedAds(String searchInput) {
+    public List<Ad> searchedAds(String searchInput, String searchCat) {
         System.out.println("searchInput = " + searchInput);
+        System.out.println("searchCat = " + searchCat);
         PreparedStatement pst = null;
         try {
-            pst = connection.prepareStatement("SELECT * FROM ads WHERE title LIKE ?");
+            pst = connection.prepareStatement("SELECT ads.* FROM ads\n" +
+                    "  JOIN pivot_categories pc ON ads.id = pc.ads_id\n" +
+                    "  JOIN categories c ON pc.categories_id = c.id\n" +
+                    "WHERE ads.title LIKE  ?  AND c.category_name = ?");
             pst.setString(1,"%" + searchInput + "%");
+
+            pst.setString(2, searchCat);
             ResultSet rs = pst.executeQuery();
             return createAdsFromResults(rs);
         } catch (SQLException e) {
