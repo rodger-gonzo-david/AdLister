@@ -29,9 +29,16 @@ public class MySQLAdsDao implements Ads {
         PreparedStatement stmt = null;
         try {
 
-            stmt = connection.prepareStatement("SELECT ads.*, c.category_name FROM ads JOIN pivot_categories pc ON ads.id = pc.ads_id JOIN categories c ON pc.categories_id = c.id");
+//            stmt = connection.prepareStatement("SELECT ads.*, c.category_name FROM ads JOIN pivot_categories pc ON ads.id = pc.ads_id JOIN categories c ON pc.categories_id = c.id");
 
 //            stmt = connection.prepareStatement("SELECT * FROM ads JOIN pivot_media on ads.id = pivot_media.ad_id join media on pivot_media.media_id = media.id order by ad_id");
+
+            stmt = connection.prepareStatement("SELECT * FROM ads   " +
+                    "JOIN pivot_categories pc ON ads.id = pc.ads_id   " +
+                    "JOIN categories c ON pc.categories_id = c.id   " +
+                    "join pivot_media  on ads.id = pivot_media.ad_id   " +
+                    "join media     on pivot_media.media_id = media.id  " +
+                    "order by ad_id;");
 
             ResultSet rs = stmt.executeQuery();
             return createAdsForMain(rs);
@@ -69,6 +76,7 @@ public class MySQLAdsDao implements Ads {
             stmt.setDouble(4, Double.parseDouble(ad.getPrice()));
             stmt.executeUpdate();
             Long holder = Long.parseLong(ad.getCategory());
+            System.out.println("This is the value of the holder " + holder);
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
 
@@ -122,10 +130,11 @@ public class MySQLAdsDao implements Ads {
         PreparedStatement stmt;
         try {
 //            stmt = connection.prepareStatement("SELECT * FROM ads JOIN users ON ads.user_id = users.id WHERE username = ?");
-            stmt = connection.prepareStatement("SELECT * FROM ads JOIN users ON ads.user_id = users.id JOIN pivot_media on ads.id = pivot_media.ad_id join media on pivot_media.media_id = media.id WHERE username = ?");
+//            stmt = connection.prepareStatement("SELECT * FROM ads JOIN users ON ads.user_id = users.id JOIN pivot_media on ads.id = pivot_media.ad_id join media on pivot_media.media_id = media.id WHERE username = ?");
+            stmt = connection.prepareStatement("SELECT *   FROM ads JOIN users ON ads.user_id = users.id JOIN pivot_categories pc     ON ads.id = pc.ads_id   JOIN categories c     ON pc.categories_id = c.id   join pivot_media     on ads.id = pivot_media.ad_id   join media     on pivot_media.media_id = media.id where username=?");
             stmt.setString(1, s);
             ResultSet rs = stmt.executeQuery();
-            return createAdsFromResults(rs);
+            return createAdsForMain(rs);
         } catch (SQLException e) {
             throw new RuntimeException("Error retrieving all user ads.", e);
         }
@@ -148,7 +157,8 @@ public class MySQLAdsDao implements Ads {
                 rs.getString("title"),
                 rs.getString("description"),
                 rs.getString("category_name"),
-                rs.getString("price")
+                rs.getString("price"),
+                rs.getString("location")
         );
     }
 
@@ -186,10 +196,11 @@ public class MySQLAdsDao implements Ads {
     public List<Ad> individualAd(String adID) {
         PreparedStatement pst = null;
         try {
-            pst = connection.prepareStatement("SELECT * FROM ads WHERE id = ?");
+//            pst = connection.prepareStatement("SELECT * FROM ads WHERE id = ?");
+            pst = connection.prepareStatement("SELECT *   FROM ads   JOIN pivot_categories pc     ON ads.id = pc.ads_id   JOIN categories c     ON pc.categories_id = c.id   join pivot_media     on ads.id = pivot_media.ad_id   join media     on pivot_media.media_id = media.id where ads.id=?");
             pst.setString(1, adID);
             ResultSet rs = pst.executeQuery();
-            return createAdsFromResults(rs);
+            return createAdsForMain(rs);
         } catch (SQLException e) {
             throw new RuntimeException("Error retrieving specific add", e);
         }
