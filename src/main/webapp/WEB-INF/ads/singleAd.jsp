@@ -27,7 +27,7 @@
             <h5 class="price">Price: $${ad.price}</h5>
         </div>
             <div class="col-md-offset-1 col-md-6 picture-placeholder">
-                Placeholder
+                <img src="${ad.location}" alt="">
             </div>
         </c:forEach>
     </div>

@@ -90,3 +90,7 @@ VALUES ('1','1'),
 ('5','7'),
 ('6','5'),
 ('7', '3') , ('8','5'), ('9','13'), ('10','12'), ('11','3'), ('12','13'), ('13','9'), ('14','11'), ('15','5'), ('16','2'), ('17','9');
+
+
+
+SELECT ads.*, c.category_name, location,ad_id FROM ads JOIN pivot_categories pc ON ads.id = pc.ads_id JOIN categories c ON pc.categories_id = c.id join pivot_media on ads.id = pivot_media.ad_id join media on pivot_media.media_id = media.id order by ad_id;

@@ -46,6 +46,7 @@ public class MySQLAdsDao implements Ads {
                 rs.getLong("user_id"),
                 rs.getString("title"),
                 rs.getString("description"),
+                rs.getString("price"),
                 rs.getString("location")
         );
     }
@@ -186,10 +187,10 @@ public class MySQLAdsDao implements Ads {
     public List<Ad> individualAd(String adID) {
         PreparedStatement pst = null;
         try {
-            pst = connection.prepareStatement("SELECT * FROM ads WHERE id = ?");
+            pst = connection.prepareStatement("SELECT ads.*, c.category_name, location, ad_id FROM ads JOIN pivot_categories pc ON ads.id = pc.ads_id JOIN categories c ON pc.categories_id = c.id join pivot_media on ads.id = pivot_media.ad_id join media on pivot_media.media_id = media.id WHERE ads.id = ?");
             pst.setString(1, adID);
             ResultSet rs = pst.executeQuery();
-            return createAdsFromResults(rs);
+            return createAdsForMain(rs);
         } catch (SQLException e) {
             throw new RuntimeException("Error retrieving specific add", e);
         }
