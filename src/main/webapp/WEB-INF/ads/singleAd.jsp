@@ -20,10 +20,14 @@
     <h1 style="text-align: center">Viewing Add</h1>
     <div class="row">
         <c:forEach var="ad" items="${single}">
-        <div class="col-sm-8 col-sm-offset-2 center-block">
+        <div class="col-md-4 col-md-offset-1 center-block">
             <h2>${ad.title}</h2>
             <p>${ad.description}</p>
+            <h5>Price: $${ad.price}</h5>
         </div>
+            <div class="col-md-offset-1 col-md-6 picture-placeholder">
+                Placeholder
+            </div>
         </c:forEach>
     </div>
 </div>

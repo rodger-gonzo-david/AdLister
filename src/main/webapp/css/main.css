@@ -32,6 +32,11 @@ fieldset {
     text-align: center;
 }
 
+.picture-placeholder {
+    height: 400px;
+    background-color: #8c8c8c;
+}
+
 .card-body {
     padding: 5px;
 }

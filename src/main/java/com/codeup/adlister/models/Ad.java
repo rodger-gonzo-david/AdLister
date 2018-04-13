@@ -10,19 +10,21 @@ public class Ad {
     private String price;
     private String category;
 
-    public Ad(long id, long userId, String title, String description, String category) {
+    public Ad(long id, long userId, String title, String description, String category, String price) {
         this.id = id;
         this.userId = userId;
         this.title = title;
         this.description = description;
         this.category = category;
+        this.price = price;
     }
 
-    public Ad(long id, long userId, String title, String description) {
+    public Ad(long id, long userId, String title, String description, String price) {
         this.id = id;
         this.userId = userId;
         this.title = title;
         this.description = description;
+        this.price = price;
     }
 
     public Ad(long userId, String title, String description, String price, String category) {
