@@ -44,8 +44,8 @@ INSERT INTO ads (user_id, title, description, price) VALUES
   (5, 'Baby Einstein Music Activity Set', 'Give your child the gift of music from an early age. Great condition.', 8.00),
   (18, 'Solid Oak Crib', 'Well-crafted solid oak crib in great condition. Mesh crib guard included.', 300.00),
   (17, 'Jogging Stroller', 'Lightly used jogging stroller for sale. Perfect for getting some fresh air with baby', 100.00),
-  (3, 'Baby\'s First Shapes Collection', 'Collection of 10 puffy books. Perfect for an infant or early toddler', 9.00),
-  (20, 'Richard Scarry Collection', 'Original encyclopedia set collection of all of Richard Scarry\'s works. Perfect heirloom item!', 30.00),
+  (3, 'Baby First Shapes Collection', 'Collection of 10 puffy books. Perfect for an infant or early toddler', 9.00),
+  (20, 'Richard Scarry Collection', 'Original encyclopedia set collection of all of Richard Scarry works. Perfect heirloom item!', 30.00),
   (9, 'Chico Active Stroller', 'Most Chico infant carseat models clip right in. Come check it out and see.', 50.00);
 
 INSERT INTO pivot_categories (ads_id, categories_id) VALUES
@@ -64,33 +64,26 @@ INSERT INTO pivot_categories (ads_id, categories_id) VALUES
   (13, 6);
 
 INSERT INTO media (location) VALUES
-  ('/cookies.jpeg'),
-  ('/laptoppicture.jpeg'),
-  ('/SICK_CAR_BRO.jpeg'),
-  ('/OTHERANGLEOFCAR.jpeg'),
-  ('/pic_of_donathan.png'),
-  ('/stock_photo_bahama_1.png'),
-  ('/stock_photo_bahama_2.png'),
-  ('/stock_photo_bahama_3.png'),
-  ('/stock_photo_bahama_4.png'),
-  ('/cancun_before_nuclear_explosion.png'),
-  ('/gavel.jpeg'),
-  ('/sun_picture.jpeg'),
-  ('/cat.jpeg'),
-  ('/man_in_cat_costume.jpeg'),
-  ('/man_in_cat_costume_holding_cat.jpeg'),
-  ('/banana_logo_pic.png'),
-  ('/laptop_asus.png');
+  ('/avent_bottle.jpeg'),
+  ('/bottle_warmer.jpeg'),
+  ('/jack_in_box.jpeg'),
+  ('/Maxi-Cosi.jpeg'),
+  ('/overalls.png'),
+  ('/pacifier_clip.png'),
+  ('/sleeper.png'),
+  ('/baby_shapes.png'),
+  ('/chicco_stroller.png'),
+  ('/einstein_music.png'),
+  ('/jogging_stroller.jpeg'),
+  ('/oak_crib.jpeg'),
+  ('/scarry.jpeg');
 
 INSERT INTO pivot_media (media_id, ad_id)
-VALUES ('1','1'),
-('2','5'),
+VALUES ('1','5'),
+('2','3'),
 ('3','2'),
-('4','10'),
-('5','7'),
-('6','5'),
-('7', '3') , ('8','5'), ('9','13'), ('10','12'), ('11','3'), ('12','13'), ('13','9'), ('14','11'), ('15','5'), ('16','2'), ('17','9');
+('4','9'),
+('5','4'),
+('6','7'),
+('7', '1') , ('8','12'), ('9','13'), ('10','8'), ('11','10'), ('12','9'), ('13','11');
 
-
-
-SELECT ads.*, c.category_name, location,ad_id FROM ads JOIN pivot_categories pc ON ads.id = pc.ads_id JOIN categories c ON pc.categories_id = c.id join pivot_media on ads.id = pivot_media.ad_id join media on pivot_media.media_id = media.id order by ad_id;
