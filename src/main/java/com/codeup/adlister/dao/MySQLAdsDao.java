@@ -196,8 +196,12 @@ public class MySQLAdsDao implements Ads {
     public List<Ad> individualAd(String adID) {
         PreparedStatement pst = null;
         try {
+
+//            pst = connection.prepareStatement("SELECT ads.*, c.category_name, location, ad_id FROM ads JOIN pivot_categories pc ON ads.id = pc.ads_id JOIN categories c ON pc.categories_id = c.id join pivot_media on ads.id = pivot_media.ad_id join media on pivot_media.media_id = media.id WHERE ads.id = ?");
+
 //            pst = connection.prepareStatement("SELECT * FROM ads WHERE id = ?");
             pst = connection.prepareStatement("SELECT *   FROM ads   JOIN pivot_categories pc     ON ads.id = pc.ads_id   JOIN categories c     ON pc.categories_id = c.id   join pivot_media     on ads.id = pivot_media.ad_id   join media     on pivot_media.media_id = media.id where ads.id=?");
+
             pst.setString(1, adID);
             ResultSet rs = pst.executeQuery();
             return createAdsForMain(rs);

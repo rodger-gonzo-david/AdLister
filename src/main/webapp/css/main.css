@@ -38,6 +38,10 @@ hr {
     background-color: #A9DEF9;
 }
 
+.hidden {
+    display: none;
+}
+
 fieldset {
     text-align: center;
 }
