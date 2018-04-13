@@ -15,14 +15,26 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
-
-<h1>Welcome to the Search Page</h1>
-<form action="/ads/search" method="get">
-    <label for="search"><input type="text" name="searchInput" id="search"></label>
-</form>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-offset-4 col-xs-4">
+            <h1 class="text-center">Search Page</h1>
+            <div class="text-center">
+                <form action="/ads/search" method="get" class="center-text center-block">
+                    <label for="search">Title: <input type="text" name="searchInput" id="search"></label><br>
+                    <label for="searchCat"> Category: <select id="searchCat" name="searchCat">
+                        <option value="Home">Home</option>
+                        <option value="Auto">Auto</option>
+                    </select></label><br>
+                    <button>Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="container">
-    <h1>Here Are all the ads!</h1>
+    <hr>
     <c:forEach var="ad" items="${search}">
         <div class="col-md-6">
             <h2>${ad.title}</h2>

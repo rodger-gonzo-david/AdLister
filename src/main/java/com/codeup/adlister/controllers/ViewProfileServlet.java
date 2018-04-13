@@ -32,22 +32,17 @@ public class ViewProfileServlet extends HttpServlet {
 
         String emailChange = request.getParameter("emailInput");
         String passwordChange = request.getParameter("passwordInput");
-        System.out.println(emailChange);
-        System.out.println(passwordChange);
         User user = (User) request.getSession().getAttribute("user");
         String username = user.getUsername();
 
-//        if (!emailChange.equals("")) {
+
         if (emailChange != null || emailChange.trim() != "") {
             DaoFactory.getUsersDao().modifyEmail(emailChange, username);
         }
 
-//        if (!passwordChange.equals("")) {
+
         if (passwordChange != null || passwordChange.trim() != "") {
             DaoFactory.getUsersDao().modifyPassword(passwordChange, username);
-        } else if (passwordChange == null || passwordChange.trim() == ""){
-            System.out.println("I am null");
-            response.sendRedirect("/profile");
         }
 
             user = DaoFactory.getUsersDao().findByUsername(username);
@@ -55,7 +50,6 @@ public class ViewProfileServlet extends HttpServlet {
             request.getSession().setAttribute("user", user);
 
 
-
-        request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
+            response.sendRedirect("/profile");
     }
 }

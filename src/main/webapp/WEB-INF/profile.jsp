@@ -26,10 +26,11 @@
                 <h2>${message}</h2>
                 <button type="button" class="btn btn-primary">Edit Ad</button>
                 <button type="button" class="btn btn-danger">Delete Ad</button>
+                <a href="/ads/editAd?ad-id=${ad.id}">Edit this ad.</a>
             </div>
         </c:forEach>
 
-
+        <jsp:include page="/WEB-INF/partials/scripts.jsp" />
 
 </body>
 </html>

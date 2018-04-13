@@ -1,5 +1,7 @@
 package com.codeup.adlister.models;
 
+import java.util.List;
+
 public class Ad {
     private long id;
     private long userId;
@@ -7,6 +9,7 @@ public class Ad {
     private String description;
     private String price;
     private String location;
+    private String category;
 
     public Ad(long id, long userId, String title, String description, String location) {
         this.id = id;
@@ -24,12 +27,28 @@ public class Ad {
         this.location = location;
     }
 
+    public Ad(long userId, String title, String description, String price, String category,String location) {
+        this.userId = userId;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+        this.location = location;
+
+    }
+
     public String getLocation() {
         return location;
     }
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public Ad() {}
+
+    public String getCategory() {
+        return category;
     }
 
     public long getId() {
@@ -70,5 +89,9 @@ public class Ad {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

@@ -19,6 +19,8 @@ import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+
 
 @WebServlet(name = "controllers.CreateAdServlet", urlPatterns = "/ads/create")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2,
@@ -63,7 +65,6 @@ public class CreateAdServlet extends HttpServlet {
         String location = String.format("%s/%s","resources/img",filename);
         System.out.println(savePath);
 
-
         if(session != null){
             user = (User) session.getAttribute("user");
         }
@@ -72,7 +73,10 @@ public class CreateAdServlet extends HttpServlet {
             if (validAttempt) {
                 filePart.write(savePath + File.separator); // writing file to location
                 Ad ad = new Ad(user.getId(),
-                        request.getParameter("title"), request.getParameter("description"), request.getParameter("price"), location
+                        request.getParameter("title"),
+                        request.getParameter("description"),
+                        request.getParameter("price"),
+                        location
                 );
                 DaoFactory.getAdsDao().insert(ad);
                 response.sendRedirect("/profile");

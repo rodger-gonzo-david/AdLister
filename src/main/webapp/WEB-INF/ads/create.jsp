@@ -39,11 +39,12 @@
                 </div>
                 <div>
                     <input type="checkbox" id="catAuto" name="category" value="2">
-                    <label for="catAuto">Music</label>
+                    <label for="catAuto">Auto</label>
                 </div>
             </fieldset>
             <input type="submit" class="btn btn-block btn-primary">
         </form>
     </div>
+<jsp:include page="/WEB-INF/partials/scripts.jsp" />
 </body>
 </html>
