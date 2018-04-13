@@ -9,7 +9,7 @@
 <jsp:include page="/WEB-INF/partials/navbar_logout.jsp" />
     <div class="container">
         <h1>Create a new Ad</h1>
-        <form action="/ads/create" method="post">
+        <form action="/ads/create" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 ${title_error}
                 <label for="title">Title</label>
@@ -27,7 +27,8 @@
             </div>
             <div class="form-group">
                 <label for="fileupload">Upload image</label>
-                    <input id="fileupload" name="myfile" type="file" />
+                Please enter file name:<input type="text" name="fileName">
+                Select File to Upload:<input type="file" name="picture">
             </div>
 
             <fieldset>

@@ -9,20 +9,24 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
 
 @WebServlet(name = "controllers.CreateAdServlet", urlPatterns = "/ads/create")
-public class CreateAdServlet extends HttpServlet {
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2,
+        maxFileSize = 1024 * 1024 * 10,
+        maxRequestSize = 1024 *1024 * 50)
 
+
+public class CreateAdServlet extends HttpServlet {
+    private String myPath = "/Users/Gonzo 1/IdeaProjects/AdLister/src/main/webapp/resources/img";
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("user") == null) {
             response.sendRedirect("/login");
@@ -42,14 +46,28 @@ public class CreateAdServlet extends HttpServlet {
         Validate validate = new Validate();
         boolean validAttempt = validate.authenticate(title,description,price,request);
 
+        // File upload variables
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        String fileName = request.getParameter("fileName");
+        System.out.println(fileName);
+        Part filePart = request.getPart("picture");
+        InputStream inputStream = null;
+        String filename = extractFilename(filePart);
+        System.out.println(filename);
+        String savePath = myPath + File.separator + filename;
+        String location = String.format("%s/%s","/resources/img",filename);
+        System.out.println(savePath);
+
         if(session != null){
             user = (User) session.getAttribute("user");
         }
 
         if(user != null){
             if (validAttempt) {
+                filePart.write(savePath + File.separator); // writing file to location
                 Ad ad = new Ad(user.getId(),
-                        request.getParameter("title"), request.getParameter("description"), request.getParameter("price")
+                        request.getParameter("title"), request.getParameter("description"), request.getParameter("price"), location
                 );
                 DaoFactory.getAdsDao().insert(ad);
                 response.sendRedirect("/profile");
@@ -61,6 +79,17 @@ public class CreateAdServlet extends HttpServlet {
                 response.sendRedirect("/ads/create");
             }
         }
+    }
+
+    private String extractFilename(Part filePart){
+        String contentDisp = filePart.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s: items){
+            if (s.trim().startsWith("filename")){
+                return s.substring(s.indexOf("=") +2 , s.length() -1);
+            }
+        }
+        return "";
     }
 
 }

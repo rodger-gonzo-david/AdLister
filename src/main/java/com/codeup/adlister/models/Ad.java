@@ -16,11 +16,12 @@ public class Ad {
         this.location = location;
     }
 
-    public Ad(long userId, String title, String description, String price) {
+    public Ad(long userId, String title, String description, String price, String location) {
         this.userId = userId;
         this.title = title;
         this.description = description;
         this.price = price;
+        this.location = location;
     }
 
     public String getLocation() {
