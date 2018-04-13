@@ -36,12 +36,12 @@ public class ViewProfileServlet extends HttpServlet {
         String username = user.getUsername();
 
 
-        if (emailChange != null || emailChange.trim() != "") {
+        if (emailChange != null && !emailChange.isEmpty()) {
             DaoFactory.getUsersDao().modifyEmail(emailChange, username);
         }
 
 
-        if (passwordChange != null || passwordChange.trim() != "") {
+        if (passwordChange != null && !passwordChange.isEmpty()) {
             DaoFactory.getUsersDao().modifyPassword(passwordChange, username);
         }
 
