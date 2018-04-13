@@ -24,6 +24,7 @@
                     <h5 class="card-title">${ad.title}</h5>
                     <p class="card-text">${ad.description}</p>
                     <h5 class="price">Price: $${ad.price}</h5>
+                    <img src="${ad.location}" style="width: 50%; height: 30%; text-align: center" alt="test">
                     <a href="/ads/single?ad-id=${ad.id}" class="text-center center-block">View Full Ad</a>
                 </div>
             </div>
