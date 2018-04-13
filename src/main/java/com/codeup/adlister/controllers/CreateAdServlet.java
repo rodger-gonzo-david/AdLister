@@ -28,11 +28,12 @@ import java.util.ArrayList;
         maxRequestSize = 1024 *1024 * 50)
 
 public class CreateAdServlet extends HttpServlet {
-    private String myPath = "/Users/Gonzo 1/IdeaProjects/AdLister/src/main/webapp/resources/img";
+//    private String myPath = "/Users/Gonzo 1/IdeaProjects/AdLister/src/main/webapp/resources/img";
 //    private String myPath = "/Users/Gonzo 1/Public/img";
 //      private String myPath = "/Users/Gonzo 1/Pictures/Adlister_img";
 //    private String myPath = "/Users/Shared/Adlister/img";
 //private String myPath = "/Users/Gonzo 1/IdeaProjects/AdLister/src/main/webapp";
+    private String myPath = "/Users/Gonzo 1/IdeaProjects/AdLister/src/main/webapp/img";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("user") == null) {
@@ -62,8 +63,9 @@ public class CreateAdServlet extends HttpServlet {
         String filename = extractFilename(filePart);
         System.out.println(filename);
         String savePath = myPath + File.separator + filename;
-        String location = String.format("%s/%s","resources/img",filename);
+//        String location = String.format("%s/%s","resources/img",filename);
         System.out.println(savePath);
+        String location = String.format("%s/%s","img",filename);
 
         if(session != null){
             user = (User) session.getAttribute("user");
