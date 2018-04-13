@@ -28,7 +28,7 @@
         </div>
             <div class="col-md-offset-1 col-md-6 picture-placeholder">
 
-                <img src="${ad.location}" alt="test">
+                <img src="${ad.location}" width="400" height="400" alt="test">
 
             </div>
         </c:forEach>

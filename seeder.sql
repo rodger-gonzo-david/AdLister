@@ -64,19 +64,19 @@ INSERT INTO pivot_categories (ads_id, categories_id) VALUES
   (13, 6);
 
 INSERT INTO media (location) VALUES
-  ('/avent_bottle.jpeg'),
-  ('/bottle_warmer.jpeg'),
-  ('/jack_in_box.jpeg'),
-  ('/Maxi-Cosi.jpeg'),
-  ('/overalls.png'),
-  ('/pacifier_clip.png'),
-  ('/sleeper.png'),
-  ('/baby_shapes.png'),
-  ('/chicco_stroller.png'),
-  ('/einstein_music.png'),
-  ('/jogging_stroller.jpeg'),
-  ('/oak_crib.jpeg'),
-  ('/scarry.jpeg');
+  ('/resources/img/avent_bottle.JPG'),
+  ('/resources/img/bottle_warmer.jpg'),
+  ('/resources/img/jack_in_box.jpg'),
+  ('/resources/img/Maxi-Cosi.jpg'),
+  ('/resources/img/overalls.jpg'),
+  ('/resources/img/pacifier_clip.jpg'),
+  ('/resources/img/sleeper.jpg'),
+  ('/resources/img/baby_shapes.jpg'),
+  ('/resources/img/chicco_stroller.jpg'),
+  ('/resources/img/einstein_music.jpg'),
+  ('/resources/img/jogging_stroller.jpg'),
+  ('/resources/img/oak_crib.jpg'),
+  ('/resources/img/scarry.jpg');
 
 INSERT INTO pivot_media (media_id, ad_id)
 VALUES ('1','5'),
