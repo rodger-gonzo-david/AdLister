@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <h1>Welcome to Little Jeans</h1>
-                <h2>Your premier source for baby and kids clothes</h2>
+                <h2>Your Gently Used Children's Clothing Community</h2>
             </div>
         </div>
     </header>

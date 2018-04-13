@@ -17,13 +17,20 @@
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 
 <div class="container">
-    <h1>Here Is Your Add!</h1>
-    <c:forEach var="ad" items="${single}">
-    <div class="col-md-6">
-        <h2>${ad.title}</h2>
-        <p>${ad.description}</p>
+    <h1 style="text-align: center">Viewing Add</h1>
+    <hr>
+    <div class="row">
+        <c:forEach var="ad" items="${single}">
+        <div class="col-md-4 col-md-offset-1 center-block">
+            <h2>${ad.title}</h2>
+            <p class="description">${ad.description}</p>
+            <h5 class="price">Price: $${ad.price}</h5>
+        </div>
+            <div class="col-md-offset-1 col-md-6 picture-placeholder">
+                Placeholder
+            </div>
+        </c:forEach>
     </div>
-    </c:forEach>
-
+</div>
 </body>
 </html>

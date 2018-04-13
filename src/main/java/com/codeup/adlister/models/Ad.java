@@ -11,12 +11,28 @@ public class Ad {
     private String location;
     private String category;
 
-    public Ad(long id, long userId, String title, String description, String location) {
+
+    public Ad(long id, long userId, String title, String description, String category, String price) {
+
+//    public Ad(long id, long userId, String title, String description, String location) {
+
         this.id = id;
         this.userId = userId;
         this.title = title;
         this.description = description;
-        this.location = location;
+        this.category = category;
+        this.price = price;
+    }
+
+    public Ad(long id, long userId, String title, String description, String price) {
+        this.id = id;
+        this.userId = userId;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+
+//        this.location = location;
+
     }
 
     public Ad(long userId, String title, String description, String price, String location) {

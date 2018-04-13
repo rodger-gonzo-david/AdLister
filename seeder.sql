@@ -23,52 +23,45 @@ INSERT INTO users( username, email, password) VALUES
   ('username20','bongo@yahoo.com', '$2a$12$RRRPiINRrE4S1aAiKddHmelZKtI0z1GrMpqLAQbonUILoaGkmPAQO');
 
 INSERT INTO categories (category_name) VALUES
-  ('Home'),
-  ('Auto'),
-  ('Personal'),
-  ('Services'),
-  ('Marketing'),
-  ('Travel'),
-  ('Jobs');
+  ('Infant Clothes'),
+  ('Toddler Clothes'),
+  ('Baby Accessories'),
+  ('Toys'),
+  ('Books'),
+  ('Strollers'),
+  ('Cribs'),
+  ('Car Seats');
+
 
 INSERT INTO ads (user_id, title, description, price) VALUES
-  (1, 'Cool Cookies', 'Some home baked cookies that taste good: Price by dozen', 30.00),
-  (5, 'Laptop', 'Bad macbook 4 sale', 900.00),
-  (2, 'NEW CAR', 'Car from 2000 that is automatic transmission, see pic for details', 1000.23),
-  (15, 'Muffler', 'Muffler go vroom vroom for cheap', 13.00),
-  (7, 'Handy Man Available!!!!', 'Experienced handy man who is willing to work for as little as $5/hr', 15.00),
-  (5, 'Travel to the bahamas!', 'Join us on our expedition into one of the worlds best kept secrets', 1500.00),
-  (3, 'Mexico! CANCUN!', 'WE ARE YELLING AT YOU TO GO TO CANCUN!!!! VERY FUN! ALL EXPENSE PAID TRIP BY YOU!!!', 850.00),
-  (5, 'Looking for Entry Level Lawyer', 'Looking for a brand new lawyer with 25 years experience in the legal sector $8/hr', 8.00),
-  (18, 'Make your business shine!', 'Here at Shiny Marketing, we will make your business look way better than it really is.', 300.29),
-  (17, 'Looking 4 Furry Friends', 'Am human looking to be involved with furry friends, will pay for companion (inquire below)', 8.00),
-  (3, 'Banana Friends', 'We make banana posters that are all salmon colored', 147.78),
-  (20, 'ASUS Laptop', 'Not actually an asus laptop, but that is cool right? It has an asus sticker', 700.99),
-  (9, 'Welder Needed', 'Need experienced titanium welder fast. BOOKU Bucks to be made', 9.00);
+  (1, 'Never Used Infant Boy Sleepsack', 'Brand new Cuddlebuddy sleepsack. Perfect for nighttime', 10.00),
+  (5, 'Jack in the Box', 'Scare your child with this creepy Jack0-in-the-box', 5.00),
+  (2, 'Bottle Warmer', 'Ver efficient bottle warmer', 10.00),
+  (15, 'Osh-Kosh Overalls', 'Gently worn overalls. Perfect for girl or boy. Size 3T.', 5.00),
+  (7, 'Aventi Bottle Set', 'Our little one is onto sippy cups now. These are a great set of Aventi bottles with all parts.', 15.00),
+  (5, 'Unopened Maxi-Cosi Car Seat', 'We got double of this seat at a baby shower. One of the top-rated carseats.', 150.00),
+  (3, 'Pacifier clip', 'Keep that paci attached and off the floor.', 2.00),
+  (5, 'Baby Einstein Music Activity Set', 'Give your child the gift of music from an early age. Great condition.', 8.00),
+  (18, 'Solid Oak Crib', 'Well-crafted solid oak crib in great condition. Mesh crib guard included.', 300.00),
+  (17, 'Jogging Stroller', 'Lightly used jogging stroller for sale. Perfect for getting some fresh air with baby', 100.00),
+  (3, 'Baby\'s First Shapes Collection', 'Collection of 10 puffy books. Perfect for an infant or early toddler', 9.00),
+  (20, 'Richard Scarry Collection', 'Original encyclopedia set collection of all of Richard Scarry\'s works. Perfect heirloom item!', 30.00),
+  (9, 'Chico Active Stroller', 'Most Chico infant carseat models clip right in. Come check it out and see.', 50.00);
 
 INSERT INTO pivot_categories (ads_id, categories_id) VALUES
   (1, 3),
-  (1, 4),
-  (2, 3),
-  (3, 2),
+  (2, 4),
   (3, 3),
   (4, 2),
-  (4, 3),
-  (5, 4),
-  (5, 7),
-  (6, 6),
-  (6, 3),
-  (6, 4),
-  (6, 5),
-  (7, 6),
-  (7, 4),
-  (8, 7),
+  (5, 3),
+  (6, 8),
+  (7, 3),
   (8, 4),
-  (9, 5),
-  (10, 3),
+  (9, 7),
+  (10, 6),
   (11, 5),
-  (12, 3),
-  (13, 7);
+  (12, 5),
+  (13, 6);
 
 INSERT INTO media (location) VALUES
   ('/cookies.jpeg'),
