@@ -23,16 +23,15 @@ public class EditAdServlet extends HttpServlet {
         String descriptionChange = request.getParameter("descriptionInput");
         String deleteAd = request.getParameter("deleteAd");
 
-        if (titleChange != null || titleChange.trim() != "") {
+        if (titleChange != null && !titleChange.isEmpty()) {
             DaoFactory.getAdsDao().titleChange(titleChange, adId);
         }
 
-
-        if (descriptionChange != null || descriptionChange.trim() != "") {
+        if (descriptionChange != null && !descriptionChange.isEmpty()) {
             DaoFactory.getAdsDao().descriptionChange(descriptionChange, adId);
         }
 
-        if (deleteAd != null || deleteAd.trim() != "") {
+        if (deleteAd != null && !deleteAd.isEmpty()) {
             DaoFactory.getAdsDao().deleteAd(adId);
         }
 
