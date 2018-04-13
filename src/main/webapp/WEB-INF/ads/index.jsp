@@ -19,8 +19,8 @@
         <c:forEach var="ad" items="${ads}">
             <div class="card col-sm-6 col-md-4 col-lg-3" style="height: 24rem">
                 <%--<img class="card-img-top" src="..." alt="Card image cap">--%>
-                <h4>${ad.category}</h4>
                 <div class="card-body" style="border: 1px solid black">
+                    <h4>${ad.category}</h4>
                     <h5 class="card-title">${ad.title}</h5>
                     <p class="card-text">${ad.description}</p>
                     <h5 class="price">Price: $${ad.price}</h5>
