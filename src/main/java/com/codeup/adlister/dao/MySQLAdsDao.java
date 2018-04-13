@@ -177,12 +177,9 @@ public class MySQLAdsDao implements Ads {
         System.out.println("searchCat = " + searchCat);
         PreparedStatement pst = null;
         try {
-            pst = connection.prepareStatement("SELECT ads.* FROM ads\n" +
-                    "  JOIN pivot_categories pc ON ads.id = pc.ads_id\n" +
-                    "  JOIN categories c ON pc.categories_id = c.id\n" +
-                    "WHERE ads.title LIKE  ? AND c.category_name like ?");
-            pst.setString(1,"%" + searchInput + "%");
 
+            pst = connection.prepareStatement("SELECT *   FROM ads JOIN users ON ads.user_id = users.id JOIN pivot_categories pc     ON ads.id = pc.ads_id   JOIN categories c     ON pc.categories_id = c.id   join pivot_media     on ads.id = pivot_media.ad_id   join media     on pivot_media.media_id = media.id WHERE ads.title LIKE  ?  AND c.category_name = ?");
+            pst.setString(1,"%" + searchInput + "%");
             pst.setString(2, searchCat);
             ResultSet rs = pst.executeQuery();
             return createAdsForMain(rs);

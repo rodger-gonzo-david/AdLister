@@ -23,21 +23,21 @@
 
                     <!-- Full-width images with number and caption text -->
                     <div class="mySlides fade">
-                        <div class="numbertext">1 / 3</div>
+                        <div class="numbertext"></div>
                         <img src="/img/pexels-photo-325867.jpeg" style="width:100%">
-                        <div class="text">Caption Text</div>
+                        <div class="text"></div>
                     </div>
 
                     <div class="mySlides fade">
-                        <div class="numbertext">2 / 3</div>
+                        <div class="numbertext"></div>
                         <img src="/img/shoes-pregnancy-child-clothing-47220.jpeg" style="width:100%">
-                        <div class="text">Caption Two</div>
+                        <div class="text"></div>
                     </div>
 
                     <div class="mySlides fade">
-                        <div class="numbertext">3 / 3</div>
+                        <div class="numbertext"></div>
                         <img src="/img/baby-cloth-clothing-color-41165.jpeg" style="width:100%">
-                        <div class="text">Caption Three</div>
+                        <div class="text"></div>
                     </div>
 
                     <!-- Next and previous buttons -->

@@ -17,6 +17,10 @@ body {
     font-size: 1.25em;
 }
 
+.card {
+    margin-bottom: 50px;
+}
+
 h1, h2 {
     font-family: 'Love Ya Like A Sister', cursive;
 }
@@ -48,7 +52,6 @@ fieldset {
 
 .picture-placeholder {
     height: 400px;
-    background-color: #8c8c8c;
 }
 
 .card-body {

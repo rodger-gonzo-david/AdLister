@@ -68,15 +68,15 @@ INSERT INTO media (location) VALUES
   ('/resources/img/bottle_warmer.jpg'),
   ('/resources/img/jack_in_box.jpg'),
   ('/resources/img/Maxi-Cosi.jpg'),
-  ('/resources/img/overalls.png'),
-  ('/resources/img/pacifier_clip.png'),
-  ('/resources/img/sleeper.png'),
-  ('/resources/img/baby_shapes.png'),
-  ('/resources/img/chicco_stroller.png'),
-  ('/resources/img/einstein_music.png'),
+  ('/resources/img/overalls.jpg'),
+  ('/resources/img/pacifier_clip.jpg'),
+  ('/resources/img/sleeper.jpg'),
+  ('/resources/img/baby_shapes.jpg'),
+  ('/resources/img/chicco_stroller.jpg'),
+  ('/resources/img/einstein_music.jpg'),
   ('/resources/img/jogging_stroller.jpg'),
-  ('/resources/img/oak_crib.jpeg'),
-  ('/resources/img/scarry.jpeg');
+  ('/resources/img/oak_crib.jpg'),
+  ('/resources/img/scarry.jpg');
 
 INSERT INTO pivot_media (media_id, ad_id)
 VALUES ('1','5'),
