@@ -23,13 +23,15 @@ INSERT INTO users( username, email, password) VALUES
   ('username20','bongo@yahoo.com', '$2a$12$RRRPiINRrE4S1aAiKddHmelZKtI0z1GrMpqLAQbonUILoaGkmPAQO');
 
 INSERT INTO categories (category_name) VALUES
-  ('Home'),
-  ('Auto'),
-  ('Personal'),
-  ('Services'),
-  ('Marketing'),
-  ('Travel'),
-  ('Jobs');
+  ('Infant Clothes'),
+  ('Toddler Clothes'),
+  ('Baby Accessories'),
+  ('Toys'),
+  ('Books'),
+  ('Strollers'),
+  ('Cribs'),
+  ('Car Seats');
+
 
 INSERT INTO ads (user_id, title, description, price) VALUES
   (1, 'Cool Cookies', 'Some home baked cookies that taste good: Price by dozen', 30.00),

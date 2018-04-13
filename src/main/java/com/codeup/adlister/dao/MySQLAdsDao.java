@@ -28,9 +28,9 @@ public class MySQLAdsDao implements Ads {
     public List<Ad> all() {
         PreparedStatement stmt = null;
         try {
-            stmt = connection.prepareStatement("SELECT * FROM ads");
+            stmt = connection.prepareStatement("SELECT ads.*, c.category_name FROM ads JOIN pivot_categories pc ON ads.id = pc.ads_id JOIN categories c ON pc.categories_id = c.id");
             ResultSet rs = stmt.executeQuery();
-            return createAdsFromResults(rs);
+            return createAdsForMain(rs);
         } catch (SQLException e) {
             throw new RuntimeException("Error retrieving all ads.", e);
         }
@@ -92,10 +92,28 @@ public class MySQLAdsDao implements Ads {
         );
     }
 
+    private Ad extractAdsforMain(ResultSet rs) throws SQLException {
+        return new Ad(
+                rs.getLong("id"),
+                rs.getLong("user_id"),
+                rs.getString("title"),
+                rs.getString("description"),
+                rs.getString("category_name")
+        );
+    }
+
     private List<Ad> createAdsFromResults(ResultSet rs) throws SQLException {
         List<Ad> ads = new ArrayList<>();
         while (rs.next()) {
             ads.add(extractAd(rs));
+        }
+        return ads;
+    }
+
+    private List<Ad> createAdsForMain(ResultSet rs) throws SQLException {
+        List<Ad> ads = new ArrayList<>();
+        while (rs.next()) {
+            ads.add(extractAdsforMain(rs));
         }
         return ads;
     }

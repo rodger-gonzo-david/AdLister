@@ -1,14 +1,43 @@
 header {
-    background-color: #FFBCBD;
+    background-color: #E4F0E7;
     text-align: center;
+    margin-bottom: 10px;
+}
+
+.card-title {
+    text-align: center;
+    font-size: 1.5em;
 }
 
 body {
-    background-color: #FCF6BD;
+    background-color: #F2F2F2;
+}
+
+h1, h2 {
+    font-family: 'Love Ya Like A Sister', cursive;
+}
+
+.btn {
+    background-color: #A9DEF9;
+}
+
+h4 {
+    text-align: center;
+    font-size: 1.5em;
+    background-color: #A9DEF9;
+    color: white;
+}
+
+fieldset {
+    text-align: center;
+}
+
+.card-body {
+    padding: 5px;
 }
 
 .navbar {
-    background-color: #A9E5BB;
+    background-color: whitesmoke;
     margin-bottom: 0px;
 }
 
@@ -16,7 +45,7 @@ body {
 
 /* Slideshow container */
 .slideshow-container {
-    max-width: 1000px;
+    max-width: 600px;
     position: relative;
     margin: auto;
 }

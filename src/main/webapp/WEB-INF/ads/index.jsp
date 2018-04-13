@@ -11,15 +11,21 @@
 <%--<jsp:include page="/WEB-INF/partials/navbar.jsp" />--%>
 
 <div class="container">
-    <h1 style="text-align: center">Here Are all the ads!</h1>
-
-    <c:forEach var="ad" items="${ads}">
-        <div class="col-md-6">
-            <h2>${ad.title}</h2>
-            <p>${ad.description}</p>
-            <a href="/ads/single?ad-id=${ad.id}">Check this ad out!</a>
-        </div>
-    </c:forEach>
+    <h1 style="text-align: center">Current Ads</h1>
+    <hr>
+    <div class="row">
+        <c:forEach var="ad" items="${ads}">
+            <div class="card col-sm-6 col-md-4 col-lg-3" style="height: 24rem">
+                <%--<img class="card-img-top" src="..." alt="Card image cap">--%>
+                <h4>${ad.category}</h4>
+                <div class="card-body" style="border: 1px solid black">
+                    <h5 class="card-title">${ad.title}</h5>
+                    <p class="card-text">${ad.description}</p>
+                    <a href="/ads/single?ad-id=${ad.id}" class="text-center center-block">View Full Ad</a>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
 </div>
 <jsp:include page="/WEB-INF/partials/scripts.jsp" />
 </body>
