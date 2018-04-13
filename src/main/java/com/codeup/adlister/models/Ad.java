@@ -12,7 +12,7 @@ public class Ad {
     private String category;
 
 
-    public Ad(long id, long userId, String title, String description, String category, String price) {
+    public Ad(long id, long userId, String title, String description, String category, String price, String location) {
 
 //    public Ad(long id, long userId, String title, String description, String location) {
 
@@ -22,6 +22,7 @@ public class Ad {
         this.description = description;
         this.category = category;
         this.price = price;
+        this.location = location;
     }
 
     public Ad(long id, long userId, String title, String description, String price) {

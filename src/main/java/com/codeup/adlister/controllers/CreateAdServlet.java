@@ -4,9 +4,6 @@ import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.User;
 import com.codeup.adlister.util.Validate;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -14,13 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.ArrayList;
-
 
 @WebServlet(name = "controllers.CreateAdServlet", urlPatterns = "/ads/create")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2,
@@ -78,6 +69,7 @@ public class CreateAdServlet extends HttpServlet {
                         request.getParameter("title"),
                         request.getParameter("description"),
                         request.getParameter("price"),
+                        request.getParameter("category"),
                         location
                 );
                 DaoFactory.getAdsDao().insert(ad);
