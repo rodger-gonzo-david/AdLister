@@ -82,7 +82,7 @@ public class MySQLAdsDao implements Ads {
             String insertQuery = "INSERT INTO pivot_categories (ads_id, categories_id) VALUES (?,?)";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1,rs);
-            stmt.setInt(2,4);
+            stmt.setInt(2,1);
             stmt.executeUpdate();
         } catch (SQLException e){
             throw new RuntimeException("Error adding category", e);
@@ -107,10 +107,6 @@ public class MySQLAdsDao implements Ads {
             throw new RuntimeException("Error adding file location", e);
         }
     }
-
-//    private void updatePivotMedia(){
-//        String insertQuery = "select "
-//    }
 
 
     public List<Ad> profileAds(String s) {

@@ -18,15 +18,20 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @WebServlet(name = "controllers.CreateAdServlet", urlPatterns = "/ads/create")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2,
-        maxFileSize = 1024 * 1024 * 10,
+        maxFileSize = 1024 * 1024 * 50,
         maxRequestSize = 1024 *1024 * 50)
-
 
 public class CreateAdServlet extends HttpServlet {
     private String myPath = "/Users/Gonzo 1/IdeaProjects/AdLister/src/main/webapp/resources/img";
+//    private String myPath = "/Users/Gonzo 1/Public/img";
+//      private String myPath = "/Users/Gonzo 1/Pictures/Adlister_img";
+//    private String myPath = "/Users/Shared/Adlister/img";
+//private String myPath = "/Users/Gonzo 1/IdeaProjects/AdLister/src/main/webapp";
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("user") == null) {
             response.sendRedirect("/login");
@@ -52,12 +57,12 @@ public class CreateAdServlet extends HttpServlet {
         String fileName = request.getParameter("fileName");
         System.out.println(fileName);
         Part filePart = request.getPart("picture");
-        InputStream inputStream = null;
         String filename = extractFilename(filePart);
         System.out.println(filename);
         String savePath = myPath + File.separator + filename;
-        String location = String.format("%s/%s","/resources/img",filename);
+        String location = String.format("%s/%s","resources/img",filename);
         System.out.println(savePath);
+
 
         if(session != null){
             user = (User) session.getAttribute("user");

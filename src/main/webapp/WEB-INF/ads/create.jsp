@@ -27,7 +27,7 @@
             </div>
             <div class="form-group">
                 <label for="fileupload">Upload image</label>
-                Please enter file name:<input type="text" name="fileName">
+                Please enter file name:<input id="fileupload" type="text" name="fileName">
                 Select File to Upload:<input type="file" name="picture">
             </div>
 
