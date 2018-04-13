@@ -28,12 +28,31 @@ public class MySQLAdsDao implements Ads {
     public List<Ad> all() {
         PreparedStatement stmt = null;
         try {
-            stmt = connection.prepareStatement("SELECT * FROM ads");
+//            stmt = connection.prepareStatement("SELECT * FROM ads");
+            stmt = connection.prepareStatement("SELECT * FROM ads JOIN pivot_media on ads.id = pivot_media.ad_id join media on pivot_media.media_id = media.id order by ad_id");
             ResultSet rs = stmt.executeQuery();
             return createAdsFromResults(rs);
         } catch (SQLException e) {
             throw new RuntimeException("Error retrieving all ads.", e);
         }
+    }
+
+    private Ad extractAd(ResultSet rs) throws SQLException {
+        return new Ad(
+                rs.getLong("id"),
+                rs.getLong("user_id"),
+                rs.getString("title"),
+                rs.getString("description"),
+                rs.getString("location")
+        );
+    }
+
+    private List<Ad> createAdsFromResults(ResultSet rs) throws SQLException {
+        List<Ad> ads = new ArrayList<>();
+        while (rs.next()) {
+            ads.add(extractAd(rs));
+        }
+        return ads;
     }
 
     @Override
@@ -49,7 +68,13 @@ public class MySQLAdsDao implements Ads {
             Long holder = Long.parseLong(ad.getCategory());
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
+
+            System.out.println("rs.getLong(1) = " + rs.getLong(1));
+            System.out.println("rs.getString(1) = " + rs.getString(1));
+
+            insertMedia(ad.getLocation(),rs.getInt(1));
             insertCat(rs.getInt(1),holder);
+
             return rs.getLong(1);
         } catch (SQLException e) {
             throw new RuntimeException("Error creating a new ad.", e);
@@ -70,11 +95,31 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+    private void insertMedia (String location, int rs) {
+        try{
+            String insertQuery = "INSERT INTO media (location) VALUES (?)";
+            PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1,location);
+            stmt.executeUpdate();
+            ResultSet resultSet = stmt.getGeneratedKeys();
+            resultSet.next();
+            int media_id = resultSet.getInt(1);
+            insertQuery = "INSERT INTO pivot_media(media_id, ad_id) VALUES (?,?)";
+            stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+            stmt.setInt(1,media_id);
+            stmt.setInt(2,rs);
+            stmt.executeUpdate();
+        }catch (SQLException e){
+            throw new RuntimeException("Error adding file location", e);
+        }
+    }
+
 
     public List<Ad> profileAds(String s) {
         PreparedStatement stmt;
         try {
-            stmt = connection.prepareStatement("SELECT * FROM ads JOIN users ON ads.user_id = users.id WHERE username = ?");
+//            stmt = connection.prepareStatement("SELECT * FROM ads JOIN users ON ads.user_id = users.id WHERE username = ?");
+            stmt = connection.prepareStatement("SELECT * FROM ads JOIN users ON ads.user_id = users.id JOIN pivot_media on ads.id = pivot_media.ad_id join media on pivot_media.media_id = media.id WHERE username = ?");
             stmt.setString(1, s);
             ResultSet rs = stmt.executeQuery();
             return createAdsFromResults(rs);
@@ -83,22 +128,7 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
-    private Ad extractAd(ResultSet rs) throws SQLException {
-        return new Ad(
-            rs.getLong("id"),
-            rs.getLong("user_id"),
-            rs.getString("title"),
-            rs.getString("description")
-        );
-    }
 
-    private List<Ad> createAdsFromResults(ResultSet rs) throws SQLException {
-        List<Ad> ads = new ArrayList<>();
-        while (rs.next()) {
-            ads.add(extractAd(rs));
-        }
-        return ads;
-    }
 
     @Override
     public List<Ad> searchedAds(String searchInput, String searchCat) {
@@ -119,8 +149,6 @@ public class MySQLAdsDao implements Ads {
             throw new RuntimeException("Error retrieving matching ads.", e);
         }
     }
-
-
 
 
     @Override

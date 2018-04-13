@@ -31,8 +31,8 @@ CREATE TABLE categories(
 CREATE table pivot_categories (
   ads_id int unsigned not null,
   categories_id int unsigned not null,
-  foreign key (ads_id) references ads(id),
-  foreign key (categories_id) references categories(id)
+  foreign key (categories_id) references categories(id),
+  foreign key (ads_id) references ads(id) on delete cascade
 );
 
 CREATE TABLE media (
@@ -44,8 +44,8 @@ CREATE TABLE media (
 CREATE TABLE pivot_media(
   media_id int unsigned not null,
   ad_id int unsigned not null,
-  foreign key (media_id) references media(id),
-  foreign key (ad_id) references ads(id)
+  foreign key (media_id) references media(id) on delete cascade,
+  foreign key (ad_id) references ads(id) on delete cascade
 );
 
 
