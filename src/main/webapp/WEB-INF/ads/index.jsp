@@ -1,5 +1,7 @@
+<%@ page import="java.util.concurrent.TimeUnit" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
+
 <html>
 <head>
     <jsp:include page="/WEB-INF/partials/head.jsp">
@@ -17,6 +19,7 @@
         <div class="col-md-6">
             <h2>${ad.title}</h2>
             <p>${ad.description}</p>
+            <img src="${ad.location}" alt="test">
             <a href="/ads/single?ad-id=${ad.id}">Check this ad out!</a>
         </div>
     </c:forEach>
