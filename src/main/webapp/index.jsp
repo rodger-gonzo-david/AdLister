@@ -57,5 +57,6 @@
     </section>
 
     <jsp:include page="/WEB-INF/partials/scripts.jsp" />
+    <script src="js/primary.js"></script>
 </body>
 </html>
