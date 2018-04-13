@@ -24,14 +24,16 @@
             </div>
             <fieldset>
                 <legend>Category</legend>
-                <div>
-                    <input type="checkbox" id="catHome" name="category" value="1">
-                    <label for="catHome">Home</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="catAuto" name="category" value="2">
-                    <label for="catAuto">Auto</label>
-                </div>
+                <select id="newAdCat" name="category">
+                    <option value="1">Infant Clothes</option>
+                    <option value="2">Toddler Clothes</option>
+                    <option value="3">Baby Accessories</option>
+                    <option value="4">Toys</option>
+                    <option value="5">Books</option>
+                    <option value="6">Strollers</option>
+                    <option value="7">Cribs</option>
+                    <option value="8">Car Seats</option>
+                </select>
             </fieldset>
             <input type="submit" class="btn btn-block btn-primary">
         </form>

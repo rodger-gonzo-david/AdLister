@@ -18,13 +18,18 @@
             <label for="passwordInput"><input type="text" name="passwordInput" id="passwordInput" placeholder="update password"></label>
             <button type="submit" class="btn btn-primary">Edit Email</button>
         </form>
-        <c:forEach var="ad" items="${profileAds}">
-            <div class="col-md-6">
-                <h2>${ad.title}</h2>
-                <p>${ad.description}</p>
-                <a href="/ads/editAd?ad-id=${ad.id}">Edit this ad.</a>
-            </div>
-        </c:forEach>
+    </div>
+    <div class="container">
+        <div class="row">
+            <c:forEach var="ad" items="${profileAds}">
+                <div class="col-md-6">
+                    <h2>${ad.title}</h2>
+                    <p>${ad.description}</p>
+                    <a href="/ads/editAd?ad-id=${ad.id}">Edit this ad.</a>
+                </div>
+            </c:forEach>
+        </div>
+    </div>
 
         <jsp:include page="/WEB-INF/partials/scripts.jsp" />
 
