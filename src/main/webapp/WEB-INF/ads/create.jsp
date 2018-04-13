@@ -9,19 +9,28 @@
 <jsp:include page="/WEB-INF/partials/navbar_logout.jsp" />
     <div class="container">
         <h1>Create a new Ad</h1>
-        <form action="/ads/create" method="post">
+        <form action="/ads/create" method="post" enctype="multipart/form-data">
             <div class="form-group">
+                ${title_error}
                 <label for="title">Title</label>
-                <input id="title" name="title" class="form-control" type="text">
+                <input id="title" name="title" class="form-control" type="text" value=${title}>
             </div>
             <div class="form-group">
+                ${description_error}
                 <label for="description">Description</label>
-                <textarea id="description" name="description" class="form-control" type="text"></textarea>
+                <textarea id="description" name="description" class="form-control" type="text">${description}</textarea>
             </div>
             <div class="form-group">
+                ${price_error}
                 <label for="price">Price</label>
-                <textarea id="price" name="price" class="form-control" type="text" value=0.0></textarea>
+                <input id="price" name="price" class="form-control" type="text" value=${price}>
             </div>
+            <div class="form-group">
+                <label for="fileupload">Upload image</label>
+                Please enter file name:<input id="fileupload" type="text" name="fileName">
+                Select File to Upload:<input type="file" name="picture">
+            </div>
+
             <fieldset>
                 <legend>Category</legend>
                 <select id="newAdCat" name="category">

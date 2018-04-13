@@ -3,18 +3,37 @@ package com.codeup.adlister.controllers;
 import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.User;
+import com.codeup.adlister.util.Validate;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
 
+
 @WebServlet(name = "controllers.CreateAdServlet", urlPatterns = "/ads/create")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2,
+        maxFileSize = 1024 * 1024 * 50,
+        maxRequestSize = 1024 *1024 * 50)
+
 public class CreateAdServlet extends HttpServlet {
+    private String myPath = "/Users/Gonzo 1/IdeaProjects/AdLister/src/main/webapp/resources/img";
+//    private String myPath = "/Users/Gonzo 1/Public/img";
+//      private String myPath = "/Users/Gonzo 1/Pictures/Adlister_img";
+//    private String myPath = "/Users/Shared/Adlister/img";
+//private String myPath = "/Users/Gonzo 1/IdeaProjects/AdLister/src/main/webapp";
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("user") == null) {
             response.sendRedirect("/login");
@@ -22,29 +41,65 @@ public class CreateAdServlet extends HttpServlet {
         }
         request.getRequestDispatcher("/WEB-INF/ads/create.jsp")
             .forward(request, response);
+
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
         User user=null;
+        String title = request.getParameter("title");
+        String description = request.getParameter("description");
+        String price = request.getParameter("price");
+        Validate validate = new Validate();
+        boolean validAttempt = validate.authenticate(title,description,price,request);
 
-//        String priceTest = request.getParameter("price");
+        // File upload variables
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        String fileName = request.getParameter("fileName");
+        System.out.println(fileName);
+        Part filePart = request.getPart("picture");
+        String filename = extractFilename(filePart);
+        System.out.println(filename);
+        String savePath = myPath + File.separator + filename;
+        String location = String.format("%s/%s","resources/img",filename);
+        System.out.println(savePath);
 
         if(session != null){
             user = (User) session.getAttribute("user");
         }
 
         if(user != null){
-            Ad ad = new Ad(
-                    user.getId(), // for now we'll hardcode the user id
-                    request.getParameter("title"),
-                    request.getParameter("description"),
-                    request.getParameter("price"),
-                    request.getParameter("category")
-
-            );
-            DaoFactory.getAdsDao().insert(ad);
-            response.sendRedirect("/ads");
+            if (validAttempt) {
+                filePart.write(savePath + File.separator); // writing file to location
+                Ad ad = new Ad(user.getId(),
+                        request.getParameter("title"),
+                        request.getParameter("description"),
+                        request.getParameter("price"),
+                        location
+                );
+                DaoFactory.getAdsDao().insert(ad);
+                response.sendRedirect("/profile");
+            } else {
+                // setting this attributes in case the makes a mistake.  User won't loose his input.
+                session.setAttribute("title", title);
+                session.setAttribute("description", description);
+                session.setAttribute("price", price);
+                response.sendRedirect("/ads/create");
+            }
         }
     }
+
+    private String extractFilename(Part filePart){
+        String contentDisp = filePart.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s: items){
+            if (s.trim().startsWith("filename")){
+                return s.substring(s.indexOf("=") +2 , s.length() -1);
+            }
+        }
+        return "";
+    }
+
 }
+

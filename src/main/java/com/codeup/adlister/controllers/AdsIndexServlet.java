@@ -21,7 +21,7 @@ public class AdsIndexServlet extends HttpServlet {
             request.setAttribute("navbar", "/WEB-INF/partials/navbar.jsp");
         }
 
-        request.setAttribute("ads", DaoFactory.getAdsDao().all());
+        session.setAttribute("ads", DaoFactory.getAdsDao().all());
         request.getRequestDispatcher("/WEB-INF/ads/index.jsp").forward(request, response);
     }
 }
