@@ -18,6 +18,7 @@
             <label for="emailInput"><input type="text" name="emailInput" id="emailInput" placeholder="update email"></label>
             <h3>Update Password</h3>
             <label for="passwordInput"><input type="text" name="passwordInput" id="passwordInput" placeholder="update password"></label>
+
             <button id="edit-changes" type="submit" class="btn btn-primary">Edit</button>
         </form>
 
