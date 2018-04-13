@@ -10,7 +10,8 @@
     if(user != null){
         request.setAttribute("navbar", "<li><a href=\"/ads/search\">Search</a></li>\n" +
                 "<li><a href=\"/logout\">Logout</a></li>\n" +
-                "<li><a href=\"/ads/create\">Create</a></li>");
+                "<li><a href=\"/ads/create\">Create</a></li>\n" +
+                "<li><a href=\"/profile\">Profile</a></li>");
     }  else {
         request.setAttribute("navbar", "<li><a href=\"/ads/search\">Search</a></li>\n" +
                 "<li><a href=\"/register\">Register</a></li>\n" +
